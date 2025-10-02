@@ -3,6 +3,8 @@ const app = express();
 const { engine } = require("express-handlebars");
 const port = 5482;
 
+app.use(express.static("public"));
+
 const sqlite3 = require("sqlite3");
 const dbFile = "my-project-db.sqlite3.db";
 db = new sqlite3.Database(dbFile);
@@ -14,8 +16,6 @@ app.set("views", "./views");
 app.get("/", function (req, res) {
   res.render("home", { name: "World", title: "Home" });
 });
-
-app.use(express.static("public"));
 
 app.listen(port, () => {
   console.log(`Server up and running on ${port}...`);
