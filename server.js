@@ -2,8 +2,10 @@ const express = require("express");
 const app = express();
 const { engine } = require("express-handlebars");
 const port = 5482;
+const adminPassword = "wdf#2025";
 
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
 const sqlite3 = require("sqlite3");
 const dbFile = "my-projec-db.sqlite3";
@@ -15,7 +17,7 @@ const db = new sqlite3.Database(dbFile, (err) => {
   }
 });
 
-app.get("/", (req, res) => {
+/*app.get("/", (req, res) => {
   db.all("SELECT * FROM Events", (err, rows) => {
     if (err) {
       console.error(err);
@@ -24,6 +26,17 @@ app.get("/", (req, res) => {
     }
     res.render("home", { events: rows, title: "Events list" });
   });
+});*/
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+  console.log("Form data:", username, password);
+
+  res.send(`You entered: ${username} and ${password}`);
 });
 
 app.engine("handlebars", engine());
