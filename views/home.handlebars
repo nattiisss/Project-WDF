@@ -1,2 +1,7 @@
-<h1>Hello{{name}}</h1>
-<p>It is working</p>
+<h1>{{title}}</h1>
+
+<ul>
+  {{#each events}}
+    <li>{{id}} - {{title}} ({{description}})</li>
+  {{/each}}
+</ul>
