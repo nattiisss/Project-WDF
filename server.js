@@ -100,10 +100,10 @@ app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.log("Error while destroying the session: ", err);
-      res.redirect("/");
+      res.redirect("/loggedin");
     } else {
       console.log("logged out...");
-      res.redirect("/");
+      res.redirect("/loggedin");
     }
   });
 });

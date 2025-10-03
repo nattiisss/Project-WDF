@@ -9,7 +9,7 @@
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/login">Log in</a></li>
+        <li><a href="/loggedin">Log in</a></li>
       </ul>
     </nav>
 
@@ -18,7 +18,7 @@
         <p>Welcome, {{session.un}}!</p>
         <a href="/logout">Logout</a>
       {{else}}
-        <a href="/login">Login</a>
+        <a href="/loggedin">Login</a>
       {{/if}}
     </nav>
     {{{body}}}
