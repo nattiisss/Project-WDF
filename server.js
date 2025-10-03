@@ -40,35 +40,41 @@ app.use((req, res, next) => {
   });
 });*/
 
-app.get("/login", (req, res) => {
-  res.render("login");
+app.get("/loggedin", (req, res) => {
+  res.render("loggedin", { error: null });
 });
 
-app.post("/login", (req, res) => {
-  console.log(`Here comes the data: ${req.body.un} - ${req.body.pw}`);
-  if (req.body.un === "admin") {
-    bcrypt.compare(req.body.pw, adminPassword, (err, result) => {
+app.post("/loggedin", (req, res) => {
+  const { username, password } = req.body;
+  console.log(`Here comes the data: ${username} - ${password}`);
+
+  if (username === "admin") {
+    bcrypt.compare(password, adminPassword, (err, result) => {
       if (err) {
         console.log("Error in password comparison");
-        const model = { error: "Error in password comparison." };
-        res.render("login", model);
+        return res.render("loggedin", {
+          error: "Error in password comparison.",
+        });
       }
+
       if (result) {
         req.session.isLoggedIn = true;
-        req.session.un - req.body.un;
+        req.session.un = username;
         req.session.isAdmin = true;
         console.log(" >SESSION INFORMATION: ", JSON.stringify(req.session));
-        res.render("loggedin");
+        return res.render("loggedin");
       } else {
         console.log("Wrong password");
-        model = { error: "Wrong password! Please try again " };
-        res.render("login", model);
+        return res.render("loggedin", {
+          error: "Wrong password! Please try again",
+        });
       }
     });
   } else {
     console.log("Wrong username");
-    model = { error: "Wrong username! Please try again" };
-    res.render("login", model);
+    return res.render("loggedin", {
+      error: "Wrong username! Please try again",
+    });
   }
 });
 
@@ -90,3 +96,14 @@ function hashPassword(pw, saltRounds) {
     }
   });
 }
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log("Error while destroying the session: ", err);
+      res.redirect("/");
+    } else {
+      console.log("logged out...");
+      res.redirect("/");
+    }
+  });
+});

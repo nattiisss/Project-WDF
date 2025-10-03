@@ -12,6 +12,15 @@
         <li><a href="/login">Log in</a></li>
       </ul>
     </nav>
+
+    <nav>
+      {{#if session.isLoggedIn}}
+        <p>Welcome, {{session.un}}!</p>
+        <a href="/logout">Logout</a>
+      {{else}}
+        <a href="/login">Login</a>
+      {{/if}}
+    </nav>
     {{{body}}}
 
   </body>
