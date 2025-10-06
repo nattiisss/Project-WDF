@@ -107,3 +107,12 @@ app.get("/logout", (req, res) => {
     }
   });
 });
+
+app.get("/signin", (req, res) => {
+  res.render("signin", { title: "Sign Up" });
+});
+
+app.post("/signin", (req, res) => {
+  const { username, password } = req.body;
+  res.redirect("/loggedin");
+});
