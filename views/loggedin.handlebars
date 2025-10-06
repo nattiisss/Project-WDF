@@ -1,14 +1,14 @@
-<h1>Login</h1>
-{{#if error}}
-  <p style="color: red">{{error}}</p>
-{{/if}}
+<div class="login-wrapper">
+  <h2>Log in to your account:</h2>
+  <p>Don’t have an account? <a href="/signup">Sign in</a></p>
 
-<form action="/loggedin" method="POST">
-  <label for="username">Username:</label>
-  <input type="text" name="username" id="username" />
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
 
-  <label for="password">Password:</label>
-  <input type="password" name="password" id="password" />
-
-  <button type="submit">Submit</button>
-</form>
+  <form action="/loggedin" method="POST">
+    <input type="text" name="username" placeholder="username" required />
+    <input type="password" name="password" placeholder="password" required />
+    <button type="submit" class="btn-login">Log in</button>
+  </form>
+</div>

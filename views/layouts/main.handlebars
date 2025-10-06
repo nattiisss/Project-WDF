@@ -6,19 +6,23 @@
     <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body style="font-family: system-ui; margin: 2rem;">
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/loggedin">Log in</a></li>
+    <nav class="navbar">
+      <div class="logo">Eventigo</div>
+      <ul class="nav-links">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/events">Events</a></li>
+        <li><a href="/images">Images</a></li>
+        <li><a href="/about">About us</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
-    </nav>
 
-    <nav>
       {{#if session.isLoggedIn}}
-        <p>Welcome, {{session.un}}!</p>
-        <a href="/logout">Logout</a>
+        <div class="nav-auth">
+          <span>Welcome, {{session.un}}!</span>
+          <a href="/logout">Logout</a>
+        </div>
       {{else}}
-        <a href="/loggedin">Login</a>
+        <a href="/loggedin" class="login-link">Log in</a>
       {{/if}}
     </nav>
     {{{body}}}
