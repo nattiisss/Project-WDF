@@ -120,3 +120,7 @@ app.post("/signin", (req, res) => {
 app.get("/events", (req, res) => {
   res.render("events", { error: null });
 });
+
+app.get("/about", (req, res) => {
+  res.render("about", { error: null });
+});
