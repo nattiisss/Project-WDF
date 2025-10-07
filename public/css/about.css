@@ -3,3 +3,142 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.intro-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  margin: 3rem 2rem;
+}
+
+.intro-text {
+  max-width: 40%;
+}
+
+.intro-section img {
+  max-width: 45%;
+  border-radius: 70px;
+  height: auto;
+}
+.text-left {
+  font-weight: 300;
+}
+
+.h2-right,
+.text-right {
+  text-align: right;
+  max-width: 40%;
+  margin-left: auto;
+  margin-right: 2rem;
+}
+
+.text-right {
+  font-weight: 300;
+  margin-bottom: 7rem;
+}
+
+img {
+  display: block;
+  max-width: 80%;
+  border-radius: 70px;
+  margin-left: auto;
+  margin-right: 2rem;
+}
+
+.achivements {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14rem;
+  margin: 3rem 0;
+}
+
+.achivements p {
+  background-color: #28273d;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.sponsors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  gap: 2rem;
+  text-align: center;
+}
+
+.sponsors h3 {
+  font-size: 1.3rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: 700;
+}
+
+.sponsor-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  flex-wrap: wrap;
+}
+
+.sponsor-logos img {
+  width: 5%;
+  height: auto;
+}
+
+.join-us {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 4rem;
+  border-radius: 16px;
+  overflow: hidden;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("/img/image3.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 60vh;
+  color: #ffffff;
+}
+
+.join-us h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.join-us p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #dadada;
+}
+
+.join-us a {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background-color: #ff6961;
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.join-us a:hover {
+  background-color: rgb(220, 220, 220);
+  color: black;
+  transform: scale(1.05);
+}
