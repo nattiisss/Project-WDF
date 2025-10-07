@@ -1,8 +1,35 @@
 body {
-  background-color: #191829;
+  background-color: #000000;
+  padding: 0;
+  margin: 0;
 }
 
 h2 {
+  padding-left: 1rem;
+  font-weight: 400;
   font-size: 2rem;
   color: rgb(255, 255, 255);
+}
+.event-links {
+  display: flex;
+  gap: 5.4rem;
+  list-style: none;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: rgba(97, 95, 95, 0.5);
+  padding: 1rem 1.5rem;
+}
+
+.event-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+
+.event-links li a:hover {
+  background-color: #f0f0f0;
+  border: 6px solid #f0f0f0;
+  color: black;
+  border-radius: 30px;
 }
