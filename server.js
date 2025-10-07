@@ -116,3 +116,7 @@ app.post("/signin", (req, res) => {
   const { username, password } = req.body;
   res.redirect("/loggedin");
 });
+
+app.get("/events", (req, res) => {
+  res.render("events", { error: null });
+});
