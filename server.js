@@ -12,7 +12,7 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const sqlite3 = require("sqlite3");
 const connectSqlite3 = require("connect-sqlite3");
-const dbFile = "my-projec-db.sqlite3";
+const dbFile = "my-projec-db.db";
 const db = new sqlite3.Database(dbFile);
 const SQLiteStore = connectSqlite3(session);
 
@@ -130,4 +130,8 @@ app.get("/about", (req, res) => {
 
 app.get("/images", (req, res) => {
   res.render("images", { error: null });
+});
+
+app.get("/contact", (req, res) => {
+  res.render("contact", { error: null });
 });
