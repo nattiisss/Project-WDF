@@ -29,16 +29,23 @@ app.use((req, res, next) => {
   next();
 });
 
-/*app.get("/", (req, res) => {
-  db.all("SELECT * FROM Events", (err, rows) => {
+app.get("/events/:eventsid", (req, res) => {
+  let myid = req.params.eventsid;
+  db.all("SELECT * FROM events WHERE id=?", [myid], (err, theEvents) => {
     if (err) {
-      console.error(err);
-      res.status(500).send("Database error");
-      return;
+      console.error(err.message);
+      const model = { error: "Error retrieving events from the database." };
+      res.render("one-event", model);
+    } else {
+      console.log(
+        ` - -> Retrieved ${theEvents.length} events from the database.`
+      );
+      console.log(` - ->  Events: ${JSON.stringify(theEvents)}`);
+      const model = { e: theEvents[0] };
+      res.render("one-event", model);
     }
-    res.render("home", { events: rows, title: "Events list" });
   });
-});*/
+});
 
 app.get("/loggedin", (req, res) => {
   res.render("loggedin", { error: null });
@@ -120,8 +127,16 @@ app.post("/signin", (req, res) => {
 app.get("/home", (req, res) => {
   res.render("home", { error: null });
 });
+
 app.get("/events", (req, res) => {
-  res.render("events", { error: null });
+  db.all("SELECT * FROM events", (err, events) => {
+    if (err) {
+      console.error(err.message);
+      res.render("events", { error: "Error retrieving events." });
+    } else {
+      res.render("events", { events });
+    }
+  });
 });
 
 app.get("/about", (req, res) => {

@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="/css/events.css" />
 
+{{#if error}}
+  <p class="error">{{error}}</p>
+{{/if}}
+
 <h2>Events</h2>
 <div class>
   <ul class="event-links">
@@ -14,4 +18,22 @@
     <li><a href="/">Cinema</a></li>
     <li><a href="/">Party</a></li>
   </ul>
+</div>
+
+<div>
+  <h1>List of Projects</h1>
+  <div>
+    <ul>
+      {{#each events}}
+        <li><a href="/events/{{id}}">{{title}}</a>:
+          {{description}}
+          {{location}}
+          Date:
+          {{date}}.</li>
+      {{/each}}
+    </ul>
+    {{#if error}}
+      <p class="error">{{error}}</p>
+    {{/if}}
+  </div>
 </div>
