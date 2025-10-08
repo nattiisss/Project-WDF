@@ -127,6 +127,3 @@ app.get("/events", (req, res) => {
 app.get("/about", (req, res) => {
   res.render("about", { error: null });
 });
-app.get("/contact", (req, res) => {
-  res.render("contact", { error: null });
-});
