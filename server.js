@@ -117,6 +117,8 @@ app.post("/signin", (req, res) => {
   res.redirect("/loggedin");
 });
 
+app.get("/home", (req, res) => {
+  res.render("home", { title: "Home" });
 app.get("/events", (req, res) => {
   res.render("events", { error: null });
 });
