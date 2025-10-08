@@ -116,3 +116,12 @@ app.post("/signin", (req, res) => {
   const { username, password } = req.body;
   res.redirect("/loggedin");
 });
+
+app.get("/home", (req, res) => {
+  res.render("home", { title: "Home" });
+});
+
+app.post("/home", (req, res) => {
+  const { username, password } = req.body;
+  res.redirect("/home");
+});
