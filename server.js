@@ -118,7 +118,7 @@ app.post("/signin", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  res.render("home", { title: "Home" });
+  res.render("home", { error: null });
 });
 app.get("/events", (req, res) => {
   res.render("events", { error: null });
