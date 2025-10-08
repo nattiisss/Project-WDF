@@ -119,4 +119,10 @@ app.post("/signin", (req, res) => {
 
 app.get("/home", (req, res) => {
   res.render("home", { title: "Home" });
+app.get("/events", (req, res) => {
+  res.render("events", { error: null });
+});
+
+app.get("/about", (req, res) => {
+  res.render("about", { error: null });
 });
