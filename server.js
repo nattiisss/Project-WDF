@@ -38,6 +38,18 @@ app.use((err, req, res, next) => {
   res.status(500).render("500");
 });
 
+//events
+app.get("/events", (req, res) => {
+  db.all("SELECT * FROM events", (err, events) => {
+    if (err) {
+      console.error(err.message);
+      res.render("events", { error: "Error retrieving events." });
+    } else {
+      res.render("events", { events });
+    }
+  });
+});
+
 // adding new event
 app.get("/events/new", (req, res) => {
   if (req.session.isAdmin) {
@@ -266,17 +278,6 @@ app.post("/signin", (req, res) => {
 
 app.get("/home", (req, res) => {
   res.render("home", { error: null });
-});
-
-app.get("/events", (req, res) => {
-  db.all("SELECT * FROM events", (err, events) => {
-    if (err) {
-      console.error(err.message);
-      res.render("events", { error: "Error retrieving events." });
-    } else {
-      res.render("events", { events });
-    }
-  });
 });
 
 app.get("/about", (req, res) => {
