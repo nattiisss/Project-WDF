@@ -18,7 +18,7 @@ const SQLiteStore = connectSqlite3(session);
 
 app.use(
   session({
-    store: new SQLiteStore({ db: "session-db.db copy1" }),
+    store: new SQLiteStore({ db: "session-db.db" }),
     saveUninitialized: false,
     resave: false,
     secret: "secretsecretmakapakapiegonlambada12$!birb...",
@@ -63,6 +63,17 @@ app.post("/events/delete/:eventsid", (req, res) => {
   } else {
     model = { error: "You must be loged in as admin to delete a project" };
     res.redirect("/loggedin", model);
+  }
+});
+
+app.get("/events/new", (req, res) => {
+  if (req.session.isAdmin) {
+    res.render("form-events");
+  } else {
+    model = {
+      error: "You must be logged in as admin to create a new project.",
+    };
+    res.render("loggedin", model);
   }
 });
 
