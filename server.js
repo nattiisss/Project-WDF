@@ -30,20 +30,20 @@ app.use((req, res, next) => {
 });
 
 app.get("/events/:eventsid", (req, res) => {
-  let myid = req.params.eventsid;
-  db.get("SELECT * FROM events WHERE id=?", [myid], (err, theEvents) => {
+  const myid = req.params.eventsid;
+
+  db.get("SELECT * FROM events WHERE id=?", [myid], (err, theEvent) => {
     if (err) {
       console.error(err.message);
-      const model = { error: "Error retrieving events from the database." };
-      res.render("one-event", model);
-    } else {
-      console.log(
-        ` - -> Retrieved ${theEvents.length} events from the database.`
-      );
-      console.log(` - ->  Events: ${JSON.stringify(theEvents)}`);
-      const model = { e: theEvents };
-      res.render("one-event", model);
+      return res.render("one-event", { error: "Error retrieving event." });
     }
+    console.log(` - -> Retrieved ${theEvent ? 1 : 0} event from the database.`);
+    console.log(` - -> Event: ${JSON.stringify(theEvent, null, 2)}`);
+
+    if (!theEvent) {
+      return res.render("one-event", { error: "Event not found." });
+    }
+    res.render("one-event", { e: theEvent });
   });
 });
 
