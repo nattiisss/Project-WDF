@@ -29,6 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// adding new event
 app.get("/events/new", (req, res) => {
   if (req.session.isAdmin) {
     res.render("form-events");
@@ -69,6 +70,7 @@ app.post("/events/new", (req, res) => {
   });
 });
 
+//one event showing
 app.get("/events/:eventsid", (req, res) => {
   const myid = req.params.eventsid;
 
@@ -86,6 +88,8 @@ app.get("/events/:eventsid", (req, res) => {
     res.render("one-event", { e: theEvent });
   });
 });
+
+// edit events
 app.get("/events/modify/:eventsid", (req, res) => {
   let myid = req.params.eventsid;
   if (req.session.isAdmin) {
@@ -95,18 +99,19 @@ app.get("/events/modify/:eventsid", (req, res) => {
         const model = {
           error: "Error retrieving the project the event from the database.",
         };
-        response.render("home", model);
+        res.render("home", model);
       } else {
         const model = { e: theEvent };
-        response.render("form-event", model);
+        res.render("modify-event", model);
       }
     });
   } else {
     model = { error: "You must be logged in as admin to modify a event." };
-    response.render("loggedin", model);
+    res.render("loggedin", model);
   }
 });
 
+// delete events
 app.post("/events/delete/:eventsid", (req, res) => {
   const myid = req.params.eventsid;
   if (req.session.isAdmin) {
@@ -126,6 +131,7 @@ app.post("/events/delete/:eventsid", (req, res) => {
   }
 });
 
+//login
 app.get("/loggedin", (req, res) => {
   res.render("loggedin", { error: null });
 });
