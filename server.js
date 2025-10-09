@@ -47,6 +47,25 @@ app.get("/events/:eventsid", (req, res) => {
   });
 });
 
+app.post("/events/delete/:eventsid", (req, res) => {
+  const myid = req.params.eventsid;
+  if (req.session.isAdmin) {
+    db.run("DELETE FROM events WHERE id=?", [myid], (err) => {
+      if (err) {
+        console.error(err.message);
+        console.log("Error deleting the project from the database.");
+        res.redirect("/");
+      } else {
+        console.log("The project was deleted");
+        res.redirect("/events");
+      }
+    });
+  } else {
+    model = { error: "You must be loged in as admin to delete a project" };
+    res.redirect("/loggedin", model);
+  }
+});
+
 app.get("/loggedin", (req, res) => {
   res.render("loggedin", { error: null });
 });
