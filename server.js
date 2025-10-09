@@ -111,6 +111,43 @@ app.get("/events/modify/:eventsid", (req, res) => {
   }
 });
 
+app.post("/events/modify/:eventsid", (req, res) => {
+  const myid = req.params.eventsid;
+  const { title, desc, location, date } = req.body;
+
+  if (!req.session.isAdmin) {
+    return res.render("loggedin", {
+      error: "You must be logged in as admin to modify an event.",
+    });
+  }
+
+  if (!title || !desc || !location || !date) {
+    return res.render("modify-event", {
+      e: { id: myid, title, description: desc, location, date },
+      error: "Please fill in all fields.",
+    });
+  }
+
+  const sql = `
+    UPDATE events
+    SET title = ?, description = ?, location = ?, date = ?
+    WHERE id = ?
+  `;
+
+  db.run(sql, [title, desc, location, date, myid], function (err) {
+    if (err) {
+      console.error("Database error:", err.message);
+      return res.render("modify-event", {
+        e: { id: myid, title, description: desc, location, date },
+        error: "Error updating event.",
+      });
+    }
+
+    console.log(`Event ${myid} updated successfully.`);
+    res.redirect("/events");
+  });
+});
+
 // delete events
 app.post("/events/delete/:eventsid", (req, res) => {
   const myid = req.params.eventsid;
