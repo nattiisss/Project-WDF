@@ -18,7 +18,7 @@ const SQLiteStore = connectSqlite3(session);
 
 app.use(
   session({
-    store: new SQLiteStore({ db: "session-db.db" }),
+    store: new SQLiteStore({ db: "session-db.db copy1" }),
     saveUninitialized: false,
     resave: false,
     secret: "secretsecretmakapakapiegonlambada12$!birb...",
