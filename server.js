@@ -40,19 +40,15 @@ app.get("/events/new", (req, res) => {
   }
 });
 app.post("/events/new", (req, res) => {
-  console.log("➡️ POST /events/new triggered!");
-  console.log("Session:", req.session);
   console.log("Body:", req.body);
+  console.log("Session:", req.session);
 
   if (!req.session.isAdmin) {
     return res.render("loggedin", {
       error: "You must be logged in as admin to create a new event.",
     });
   }
-
   const { title, desc, location, date } = req.body;
-
-  // Basic validation
   if (!title || !desc || !location || !date) {
     return res.render("form-events", { error: "Please fill in all fields." });
   }
@@ -68,7 +64,7 @@ app.post("/events/new", (req, res) => {
       return res.render("form-events", { error: "Error saving event." });
     }
 
-    console.log(`✅ New event created with ID ${this.lastID}`);
+    console.log(`New event created with ID ${this.lastID}`);
     res.redirect("/events");
   });
 });
@@ -89,6 +85,26 @@ app.get("/events/:eventsid", (req, res) => {
     }
     res.render("one-event", { e: theEvent });
   });
+});
+app.get("/events/modify/:eventsid", (req, res) => {
+  let myid = req.params.eventsid;
+  if (req.session.isAdmin) {
+    db.get("SELECT * FROM events WHERE id=?", [myid], (err, theEvent) => {
+      if (err) {
+        console.error(err.message);
+        const model = {
+          error: "Error retrieving the project the event from the database.",
+        };
+        response.render("home", model);
+      } else {
+        const model = { e: theEvent };
+        response.render("form-event", model);
+      }
+    });
+  } else {
+    model = { error: "You must be logged in as admin to modify a event." };
+    response.render("loggedin", model);
+  }
 });
 
 app.post("/events/delete/:eventsid", (req, res) => {
@@ -148,7 +164,16 @@ app.post("/loggedin", (req, res) => {
   }
 });
 
-app.engine("handlebars", engine());
+app.engine(
+  "handlebars",
+  engine({
+    helpers: {
+      eq(a, b) {
+        return a == b;
+      },
+    },
+  })
+);
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 

@@ -1,0 +1,36 @@
+<div id="main">
+    {{#if e.id}}
+    <h1>Modify event</h1>
+    {{else}}
+    <h1>New event</h1>
+    {{/if}}
+    <div>
+        {{#if e.id}}
+        <form action="/events/modify/{{e.id}}" method="post" id="eventform">
+        {{else}}
+        <form action="/events/new" method="post" id="eventform">
+        {{/if}}
+        <fieldset>
+            <legend>Event</legend>
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="name"{{#if e.title}} value="{{e.name}}" {{/if}}/>
+            <br>
+            <label for="desc">Description:</label>
+            <textarea name="desc" id="desc" rows="4" cols="40">{{#if e.description}}
+                <br>
+            <label for="location">Location:</label>
+            <input type="text" name="location" id="location" {{#if e.location}} value="{{e.location}}" {{/if}}/>
+            <br>
+            <label for="date">Date:</label>
+            <input type="text" name="date" id="date" {{#if e.date}} value="{{e.ate}}" {{/if}}/>
+            <br>
+            {{#if e.id}}
+            <input type="submit" value="Modify"/>
+            {{else}}
+            <input type="submit" value="Create">
+            {{/if}}
+        </fieldset>
+        </form>
+    </div>
+    {{#if error}} <p class="error">{{error}}</p>{{/if}}
+</div>
