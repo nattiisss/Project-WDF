@@ -29,6 +29,15 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res) => {
+  res.status(404).render("404.handlebars");
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("500");
+});
+
 // adding new event
 app.get("/events/new", (req, res) => {
   if (req.session.isAdmin) {
