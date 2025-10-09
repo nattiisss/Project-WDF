@@ -29,6 +29,50 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/events/new", (req, res) => {
+  if (req.session.isAdmin) {
+    res.render("form-events");
+  } else {
+    model = {
+      error: "You must be logged in as admin to create a new project.",
+    };
+    res.render("events", model);
+  }
+});
+app.post("/events/new", (req, res) => {
+  console.log("➡️ POST /events/new triggered!");
+  console.log("Session:", req.session);
+  console.log("Body:", req.body);
+
+  if (!req.session.isAdmin) {
+    return res.render("loggedin", {
+      error: "You must be logged in as admin to create a new event.",
+    });
+  }
+
+  const { title, desc, location, date } = req.body;
+
+  // Basic validation
+  if (!title || !desc || !location || !date) {
+    return res.render("form-events", { error: "Please fill in all fields." });
+  }
+
+  const sql = `
+    INSERT INTO events (title, description, location, date)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  db.run(sql, [title, desc, location, date], function (err) {
+    if (err) {
+      console.error("Database error:", err.message);
+      return res.render("form-events", { error: "Error saving event." });
+    }
+
+    console.log(`✅ New event created with ID ${this.lastID}`);
+    res.redirect("/events");
+  });
+});
+
 app.get("/events/:eventsid", (req, res) => {
   const myid = req.params.eventsid;
 
@@ -63,17 +107,6 @@ app.post("/events/delete/:eventsid", (req, res) => {
   } else {
     model = { error: "You must be loged in as admin to delete a project" };
     res.redirect("/loggedin", model);
-  }
-});
-
-app.get("/events/new", (req, res) => {
-  if (req.session.isAdmin) {
-    res.render("form-events");
-  } else {
-    model = {
-      error: "You must be logged in as admin to create a new project.",
-    };
-    res.render("loggedin", model);
   }
 });
 

@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/css/eventpage.css" />
+<p><a href="/events">← Back to Events</a></p>
+<div id="main">
+  <h1>New Events</h1>
+  <div>
+    <form action="/events/new" method="post" id="eventsform">
+      <fieldset>
+        <legend>Event</legend>
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" />
+        <br />
+        <label for="desc">Description:</label>
+        <textarea name="desc" id="desc" rows="4" cols="40"></textarea>
+        <br />
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" />
+        <br />
+        <label for="date">Date:</label>
+        <input type="text" name="date" id="date" />
+        <br />
+        <input type="submit" value="Create" />
+      </fieldset>
+    </form>
+    {{#if error}} <p class="error">{{error}}</p>{{/if}}
+  </div>
+</div>
