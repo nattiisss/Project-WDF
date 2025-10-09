@@ -21,15 +21,32 @@
 </div>
 
 <div>
-  <h1>List of Projects</h1>
+  <h1>List of Events</h1>
   <div>
+    {{#if session.isAdmin}}
+      <p>
+        <form style="display:inline" method="GET" action="/events/new">
+          <button type="submit" class="important">New Event</button>
+        </form>
+      </p>
+
+    {{/if}}
     <ul>
       {{#each events}}
         <li><a href="/events/{{id}}">{{title}}</a>:
           {{description}}
           {{location}}
           Date:
-          {{date}}.</li>
+          {{date}}.
+        {{#if ../session.isAdmin}}
+          <form style="display:inline" method="GET" action="/events/modify/{{id}}">
+          <button type="submit" class="important">Edit</button>
+          </form>
+          <form style="display:inline" method="POST" action="/events/delete/{{id}}">
+          <button type="submit" class="important">Remove</button>
+          </form>
+        {{/if}}
+          </li>
       {{/each}}
     </ul>
     {{#if error}}
