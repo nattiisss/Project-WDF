@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 
 app.get("/events/:eventsid", (req, res) => {
   let myid = req.params.eventsid;
-  db.all("SELECT * FROM events WHERE id=?", [myid], (err, theEvents) => {
+  db.get("SELECT * FROM events WHERE id=?", [myid], (err, theEvents) => {
     if (err) {
       console.error(err.message);
       const model = { error: "Error retrieving events from the database." };
@@ -41,7 +41,7 @@ app.get("/events/:eventsid", (req, res) => {
         ` - -> Retrieved ${theEvents.length} events from the database.`
       );
       console.log(` - ->  Events: ${JSON.stringify(theEvents)}`);
-      const model = { e: theEvents[0] };
+      const model = { e: theEvents };
       res.render("one-event", model);
     }
   });
