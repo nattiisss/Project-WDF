@@ -188,8 +188,32 @@ app.get("/loggedin", (req, res) => {
 app.post("/loggedin", (req, res) => {
   const { username, password } = req.body;
   console.log(`Here comes the data: ${username} - ${password}`);
-
-  if (username === "admin") {
+  db.get("SELECT * FROM Users where username=? ", [username], (error, user) => {
+    if (error) {
+      console.log(error);
+      res.render("loggedin", { error });
+    } else {
+      bcrypt.compare(password, user.password, (error, result) => {
+        if (error) {
+          console.log(error);
+          res.render("loggedin", { error });
+        } else {
+          if (result) {
+            req.session.isLoggedIn = true;
+            req.session.un = username;
+            req.session.isAdmin = true;
+            console.log(" >SESSION INFORMATION: ", JSON.stringify(req.session));
+            res.render("loggedin");
+          } else {
+            res.render("loggedin", { error: "Error in the password" });
+            console.log("Wrong Password");
+          }
+        }
+      });
+    }
+  });
+});
+/*if (username === "admin") {
     bcrypt.compare(password, adminPassword, (err, result) => {
       if (err) {
         console.log("Error in password comparison");
@@ -217,7 +241,7 @@ app.post("/loggedin", (req, res) => {
       error: "Wrong username! Please try again",
     });
   }
-});
+});*/
 
 app.engine(
   "handlebars",
