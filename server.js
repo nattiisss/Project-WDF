@@ -12,7 +12,7 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const sqlite3 = require("sqlite3");
 const connectSqlite3 = require("connect-sqlite3");
-const dbFile = "my-projec-db.db";
+const dbFile = "my-projec-db copy1.db";
 const db = new sqlite3.Database(dbFile);
 const SQLiteStore = connectSqlite3(session);
 
@@ -201,7 +201,7 @@ app.post("/loggedin", (req, res) => {
           if (result) {
             req.session.isLoggedIn = true;
             req.session.un = username;
-            req.session.isAdmin = true;
+            req.session.isAdmin = user.role == "admin";
             console.log(" >SESSION INFORMATION: ", JSON.stringify(req.session));
             res.render("loggedin");
           } else {
