@@ -53,7 +53,12 @@ app.get("/events", (req, res) => {
     db.all(categoriesSql, (err2, categories) => {
       if (err2)
         return res.render("events", { error: "Error retrieving categories." });
-      res.render("events", { events, categories, activeCategoryIsAll: true });
+      res.render("events", {
+        events,
+        categories,
+        activeCategoryIsAll: true,
+        pageClass: "events",
+      });
     });
   });
 });
@@ -376,19 +381,19 @@ app.post("/signin", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  res.render("home", { error: null });
+  res.render("home", { pageClass: "home" });
 });
 
 app.get("/about", (req, res) => {
-  res.render("about", { error: null });
+  res.render("about", { pageClass: "about" });
 });
 
 app.get("/images", (req, res) => {
-  res.render("images", { error: null });
+  res.render("images", { pageClass: "images" });
 });
 
 app.get("/contact", (req, res) => {
-  res.render("contact", { error: null });
+  res.render("contact", { pageClass: "contact" });
 });
 
 //errors

@@ -8,13 +8,13 @@
   <body class="{{pageClass}}" style="font-family: system-ui;">
     <nav class="navbar">
       <div class="logo">Eventigo</div>
-      <ul class="nav-links">
-        <li><a href="/home">Home</a></li>
-        <li><a href="/events">Events</a></li>
-        <li><a href="/images">Images</a></li>
-        <li><a href="/about">About us</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
+    <ul class="nav-links">
+  <li><a href="/home" class="{{#ifEquals pageClass 'home'}}active{{/ifEquals}}">Home</a></li>
+  <li><a href="/events" class="{{#ifEquals pageClass 'events'}}active{{/ifEquals}}">Events</a></li>
+  <li><a href="/images" class="{{#ifEquals pageClass 'images'}}active{{/ifEquals}}">Images</a></li>
+  <li><a href="/about" class="{{#ifEquals pageClass 'about'}}active{{/ifEquals}}">About us</a></li>
+  <li><a href="/contact" class="{{#ifEquals pageClass 'contact'}}active{{/ifEquals}}">Contact</a></li>
+</ul>
 
       {{#if session.isLoggedIn}}
         <div class="nav-auth">

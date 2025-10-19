@@ -42,7 +42,16 @@ html {
 .nav-links li a:hover {
   background-color: #ff6961;
   border: 2px solid #ff6961;
+  padding: 0.3rem 0.8rem;
   border-radius: 30px;
+}
+
+.nav-links li a.active {
+  background-color: #ff6961;
+  border: 2px solid #ff6961;
+  padding: 0.3rem 0.8rem;
+  border-radius: 30px;
+  color: white;
 }
 
 .nav-auth {
