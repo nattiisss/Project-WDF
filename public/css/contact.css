@@ -1,28 +1,39 @@
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+html,
+body {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
+main {
+  flex: 1;
+}
 #background {
-  position: absolute; /* stays put even when scrolling */
+  position: absolute; /* stays in document flow but behind content */
   top: 0;
   left: 0;
   width: 100%;
-  height: vw;
-  z-index: -100;
-  overflow: hidden;
+  height: auto; /* auto to keep image aspect ratio */
+  z-index: -1; /* behind everything */
 }
 
 #background img {
   width: 100%;
-  height: auto;
+  height: auto; /* keep original aspect ratio */
   display: block;
   object-fit: contain; /* keeps full image visible */
 }
+
 .contact-us {
   width: 25%;
   display: flex;
   flex-direction: row;
   padding-left: 10%;
+  margin-top: 5vw;
 }
 h1 {
   padding-left: 10%;
@@ -54,20 +65,33 @@ h1 {
   justify-content: space-evenly;
   padding-top: 5vw;
 }
-form {
+.contact-form h1 {
+  justify-self: center;
+  align-self: center;
+  margin-right: 5%;
+}
+
+.contact-form .line {
+  margin-top: 0.3vw;
+  width: 110%;
+}
+.contact-form form {
   width: 30%;
   background-color: #353434;
   padding: 2vw;
   border-radius: 2vw;
 }
-form p {
-  padding-left: 5%;
+.contact-form form h1 {
+  justify-self: left;
+  align-self: center;
+  padding-left: 0%;
+  margin: 0.2vw 0 1vw 0;
 }
-form p {
-  padding: 0;
-  margin: 0;
+.contact-form form p {
+  padding-left: 0%;
+  margin: 1vw 0 0 0;
 }
-input[type="text"],
+.contact-form input[type="text"],
 select,
 textarea {
   width: 100%;
@@ -75,31 +99,34 @@ textarea {
   border: 0.1vw solid white;
   border-radius: 1.5vw;
 }
-form input::placeholder,
-form textarea::placeholder {
-  padding: 0.6vw 0.6vw;
-}
-form input {
+.contact-form form input {
   height: 2vw;
+  color: white;
+  padding-left: 2%;
 }
-form textarea {
+.contact-form form textarea {
   height: 6vw;
   border-radius: 1vw;
+  color: white;
+  margin-bottom: 1vw;
+  padding-left: 2%;
 }
-form label {
-  padding-bottom: 10vw;
+.contact-form form label {
+  display: block;
+  margin: 0.5vw 0 0.25vw;
 }
-
-input[type="submit"] {
+.contact-form form .contactsend {
   background-color: #ff676a;
   color: white;
   width: 100%;
-  margin-top: 1vw;
-  padding: 2vw 0vw;
   border: none;
   border-radius: 2vw;
   cursor: pointer;
   font-size: 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4vw;
 }
 
 footer {
@@ -107,6 +134,7 @@ footer {
   width: 100%;
   padding-bottom: 2vw;
   padding-top: 5vw;
+  position: absolute;
 }
 footer .footer-part-1 {
   display: flex;
@@ -156,7 +184,7 @@ footer p {
   color: white;
   padding-left: 0.3vw;
 }
-.form .send {
+.form .footersend {
   background-color: #ff676a;
   width: 20%;
   color: white;
