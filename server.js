@@ -16,9 +16,23 @@ const dbFile = "my-projec-db copy1.db";
 const db = new sqlite3.Database(dbFile);
 const SQLiteStore = connectSqlite3(session);
 
+db.run(
+  `CREATE TABLE IF NOT EXISTS Users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    email TEXT UNIQUE,
+    password TEXT,
+    role TEXT
+  )`,
+  (err) => {
+    if (err) console.log("Error creating Users table:", err);
+    else console.log("✅ Users table is ready.");
+  }
+);
+
 app.use(
   session({
-    store: new SQLiteStore({ db: "session-db.db" }),
+    store: new SQLiteStore({ db: "my-projec-db copy1.db" }),
     saveUninitialized: false,
     resave: false,
     secret: "secretsecretmakapakapiegonlambada12$!birb...",
@@ -287,8 +301,37 @@ app.get("/signin", (req, res) => {
 });
 
 app.post("/signin", (req, res) => {
-  const { username, password } = req.body;
-  res.redirect("/loggedin");
+  const { email, username, password, confirmPassword } = req.body;
+
+  if (!email || !username || !password || !confirmPassword) {
+    return res.render("signin", { error: "All fields are required." });
+  }
+
+  if (password !== confirmPassword) {
+    return res.render("signin", { error: "Passwords do not match." });
+  }
+
+  // Hash password
+  bcrypt.hash(password, 12, (err, hashedPassword) => {
+    if (err) {
+      console.log(err);
+      return res.render("signin", { error: "Error while hashing password." });
+    }
+
+    // Insert into database
+    const sql = `INSERT INTO Users (username, email, password, role)
+                 VALUES (?, ?, ?, ?)`;
+
+    db.run(sql, [username, email, hashedPassword, "user"], function (err2) {
+      if (err2) {
+        console.log(err2);
+        return res.render("signin", {
+          error: "Username or email already exists.",
+        });
+      }
+      res.redirect("/loggedin");
+    });
+  });
 });
 
 app.get("/home", (req, res) => {
