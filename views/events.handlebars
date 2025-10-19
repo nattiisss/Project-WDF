@@ -6,18 +6,12 @@
 
 <h2>Events</h2>
 <div class>
-  <ul class="event-links">
-    <li><a href="/">Music</a></li>
-    <li><a href="/">Sport</a></li>
-    <li><a href="/">Games</a></li>
-    <li><a href="/">Books</a></li>
-    <li><a href="/">Art</a></li>
-    <li><a href="/">Theater</a></li>
-    <li><a href="/">Food</a></li>
-    <li><a href="/">Workshops</a></li>
-    <li><a href="/">Cinema</a></li>
-    <li><a href="/">Party</a></li>
-  </ul>
+<ul class="event-links">
+  <li><a href="/events">All</a></li> 
+  {{#each categories}}
+    <li><a href="/events/category/{{id}}">{{name}}</a></li>
+  {{/each}}
+</ul>
 </div>
 
 <div>

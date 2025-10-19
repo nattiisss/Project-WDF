@@ -31,21 +31,61 @@ app.use((req, res, next) => {
 
 //events
 app.get("/events", (req, res) => {
-  const sql = `SELECT Events.id AS id,
-       Events.title,
-       Events.description,
-       Events.date,
-       Events.location,
-       "Event Categories".name AS category_name
-      FROM Events
-      INNER JOIN eventshavecategories
-      ON Events.id = eventshavecategories.event_id
-      INNER JOIN "Event Categories"
-      ON eventshavecategories.category_id = "Event Categories".id`;
+  const eventsSql = `
+    SELECT Events.id AS id,
+           Events.title,
+           Events.description,
+           Events.date,
+           Events.location,
+           "Event Categories".name AS category_name
+    FROM Events
+    INNER JOIN eventshavecategories
+    ON Events.id = eventshavecategories.event_id
+    INNER JOIN "Event Categories"
+    ON eventshavecategories.category_id = "Event Categories".id
+  `;
 
-  db.all(sql, (err, events) => {
+  const categoriesSql = `SELECT * FROM "Event Categories"`;
+
+  db.all(eventsSql, (err, events) => {
     if (err) return res.render("events", { error: "Error retrieving events." });
-    res.render("events", { events });
+
+    db.all(categoriesSql, (err2, categories) => {
+      if (err2)
+        return res.render("events", { error: "Error retrieving categories." });
+      res.render("events", { events, categories });
+    });
+  });
+});
+
+//categories menubar
+app.get("/events/category/:id", (req, res) => {
+  const categoryId = req.params.id;
+
+  const sql = `
+    SELECT Events.id AS id,
+           Events.title,
+           Events.description,
+           Events.date,
+           Events.location,
+           "Event Categories".name AS category_name
+    FROM Events
+    INNER JOIN eventshavecategories
+    ON Events.id = eventshavecategories.event_id
+    INNER JOIN "Event Categories"
+    ON eventshavecategories.category_id = "Event Categories".id
+    WHERE "Event Categories".id = ?
+  `;
+
+  db.all(sql, [categoryId], (err, events) => {
+    if (err) return res.render("events", { error: "Error retrieving events." });
+
+    db.all(`SELECT * FROM "Event Categories"`, (err2, categories) => {
+      if (err2)
+        return res.render("events", { error: "Error retrieving categories." });
+
+      res.render("events", { events, categories });
+    });
   });
 });
 
