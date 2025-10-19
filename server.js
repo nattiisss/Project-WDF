@@ -16,20 +16,6 @@ const dbFile = "my-projec-db copy1.db";
 const db = new sqlite3.Database(dbFile);
 const SQLiteStore = connectSqlite3(session);
 
-db.run(
-  `CREATE TABLE IF NOT EXISTS Users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    email TEXT UNIQUE,
-    password TEXT,
-    role TEXT
-  )`,
-  (err) => {
-    if (err) console.log("Error creating Users table:", err);
-    else console.log("✅ Users table is ready.");
-  }
-);
-
 app.use(
   session({
     store: new SQLiteStore({ db: "my-projec-db copy1.db" }),
@@ -45,13 +31,21 @@ app.use((req, res, next) => {
 
 //events
 app.get("/events", (req, res) => {
-  db.all("SELECT * FROM events", (err, events) => {
-    if (err) {
-      console.error(err.message);
-      res.render("events", { error: "Error retrieving events." });
-    } else {
-      res.render("events", { events });
-    }
+  const sql = `SELECT Events.id AS id,
+       Events.title,
+       Events.description,
+       Events.date,
+       Events.location,
+       "Event Categories".name AS category_name
+      FROM Events
+      INNER JOIN eventshavecategories
+      ON Events.id = eventshavecategories.event_id
+      INNER JOIN "Event Categories"
+      ON eventshavecategories.category_id = "Event Categories".id`;
+
+  db.all(sql, (err, events) => {
+    if (err) return res.render("events", { error: "Error retrieving events." });
+    res.render("events", { events });
   });
 });
 
@@ -329,7 +323,10 @@ app.post("/signin", (req, res) => {
           error: "Username or email already exists.",
         });
       }
-      res.redirect("/loggedin");
+      req.session.isLoggedIn = true;
+      req.session.un = username;
+      req.session.isAdmin = false;
+      res.redirect("/home");
     });
   });
 });
