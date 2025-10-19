@@ -7,9 +7,15 @@
 <h2>Events</h2>
 <div class>
 <ul class="event-links">
-  <li><a href="/events">All</a></li> 
+  <li>
+    <a href="/events" class="{{#if activeCategoryIsAll}}active{{/if}}">All</a>
+  </li>
   {{#each categories}}
-    <li><a href="/events/category/{{id}}">{{name}}</a></li>
+    <li>
+      <a href="/events/category/{{id}}" class="{{#ifEquals id ../activeCategory}}active{{/ifEquals}}">
+        {{name}}
+      </a>
+    </li>
   {{/each}}
 </ul>
 </div>

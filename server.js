@@ -53,7 +53,7 @@ app.get("/events", (req, res) => {
     db.all(categoriesSql, (err2, categories) => {
       if (err2)
         return res.render("events", { error: "Error retrieving categories." });
-      res.render("events", { events, categories });
+      res.render("events", { events, categories, activeCategoryIsAll: true });
     });
   });
 });
@@ -84,7 +84,7 @@ app.get("/events/category/:id", (req, res) => {
       if (err2)
         return res.render("events", { error: "Error retrieving categories." });
 
-      res.render("events", { events, categories });
+      res.render("events", { events, categories, activeCategory: categoryId });
     });
   });
 });
@@ -298,9 +298,13 @@ app.engine(
       eq(a, b) {
         return a == b;
       },
+      ifEquals(a, b, options) {
+        return a == b ? options.fn(this) : options.inverse(this);
+      },
     },
   })
 );
+
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
