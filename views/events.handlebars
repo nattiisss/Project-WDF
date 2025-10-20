@@ -1,15 +1,10 @@
 <link rel="stylesheet" href="/css/events.css" />
 
-{{#if error}}
-  <p class="error">{{error}}</p>
-{{/if}}
+<h2 class="events-title">Events</h2>
 
-<h2>Events</h2>
-<div class>
+<!-- Category buttons -->
 <ul class="event-links">
-  <li>
-    <a href="/events" class="{{#if activeCategoryIsAll}}active{{/if}}">All</a>
-  </li>
+  <li><a href="/events" class="{{#if activeCategoryIsAll}}active{{/if}}">All</a></li>
   {{#each categories}}
     <li>
       <a href="/events/category/{{id}}" class="{{#ifEquals id ../activeCategory}}active{{/ifEquals}}">
@@ -18,38 +13,30 @@
     </li>
   {{/each}}
 </ul>
-</div>
 
-<div>
-  <h1>List of Events</h1>
-  <div>
-    {{#if session.isAdmin}}
-      <p>
-        <form style="display:inline" method="GET" action="/events/new">
-          <button type="submit" class="important">New Event</button>
-        </form>
-      </p>
+<div class="events-container">
+  {{#each events}}
+  <div class="event-wrapper">
+    <div class="event-info">
+      <div class="event-image">
+         <img src="/img/image1.jpg" alt="{{title}}">
+        {{!-- <img src="{{image}}" alt="{{title}}"> --}}
+      </div>
+      <div class="event-content">
+        <h3 class="event-title">{{title}}</h3>
+        <p class="event-location-time">{{formatTime date}} {{location}}</p>
+        <a href="/events/{{id}}" class="read-more">Read more</a>
+      </div>
+    </div>
 
-    {{/if}}
-    <ul>
-      {{#each events}}
-        <li><a href="/events/{{id}}">{{title}}</a>:
-          {{description}}
-          {{location}}
-          Date:
-          {{date}}.
-          Category: {{category_name}}
-        {{#if ../session.isAdmin}}
-          <form style="display:inline" method="GET" action="/events/modify/{{id}}">
-          <button type="submit" class="important">Edit</button>
-          </form>
-          <form style="display:inline" method="POST" action="/events/delete/{{id}}">
-          <button type="submit" class="important">Remove</button>
-          </form>
-        {{/if}}
-          </li>
-      {{/each}}
-    </ul>
+    <div class="event-date">
+      <div class="month">{{formatMonth date}}</div>
+      <div class="day">{{formatDay date}}</div>
+      <div class="year">{{formatYear date}}</div>
+    </div>
+  </div>
+  {{/each}}
+
 
     <p class="pagination">
   {{#if hasPrevPage}}

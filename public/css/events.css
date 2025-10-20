@@ -42,6 +42,99 @@ h2 {
   color: black;
   border-radius: 30px;
 }
+.events-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 2rem 0;
+}
+
+.event-wrapper {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-items: stretch;
+  background-color: #000;
+  gap: 2rem;
+}
+
+.event-info {
+  display: flex;
+  flex: 1;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 250px;
+  height: auto;
+  object-fit: cover;
+}
+
+.event-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem 2rem;
+}
+
+.event-title {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #000;
+  margin-bottom: 0.3rem;
+}
+
+.event-location-time {
+  font-size: 0.95rem;
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+.read-more {
+  background-color: #f08080;
+  color: white;
+  padding: 0.5rem 1.3rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  width: fit-content;
+  transition: all 0.3s;
+}
+
+.read-more:hover {
+  background-color: #e66a6a;
+}
+
+.event-date {
+  width: 90px;
+  background: #e6e6e6;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.event-date .month {
+  font-size: 0.9rem;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.event-date .day {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #000;
+  line-height: 1;
+}
+
+.event-date .year {
+  font-size: 0.9rem;
+  color: #000;
+  opacity: 0.8;
+}
 
 .pagination {
   margin-top: 1rem;

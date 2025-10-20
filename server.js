@@ -377,6 +377,22 @@ app.engine(
       ifEquals(a, b, options) {
         return a == b ? options.fn(this) : options.inverse(this);
       },
+      formatMonth: function (date) {
+        const d = new Date(date);
+        return d.toLocaleString("en-US", { month: "short" }).toUpperCase();
+      },
+      formatDay: function (date) {
+        return new Date(date).getDate();
+      },
+      formatYear: function (date) {
+        return new Date(date).getFullYear();
+      },
+      formatTime: function (date) {
+        return new Date(date).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      },
     },
   })
 );
