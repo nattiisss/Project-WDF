@@ -9,6 +9,9 @@ h2 {
   color: white;
   font-weight: 600;
 }
+img {
+  max-width: 20%;
+}
 
 p {
   padding-left: 4rem;
