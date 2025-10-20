@@ -7,6 +7,12 @@
 <h2>Images</h2>
 <p>Get a look at some of the events!</p>
 
+{{#if i.id}}
+    <form action="/images/modify/{{i.id}}" method="post" id="eventform" enctype="multipart/form-data">
+{{else}}
+    <form action="/images/new" method="post" id="eventform" enctype="multipart/form-data">
+{{/if}}
+
 <footer>
   <div class="footer-part-1">
     <div class="part1">

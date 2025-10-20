@@ -1,4 +1,6 @@
 const express = require("express");
+const multer = require("multer");
+const upload = multer({ dest: "public/img/" });
 const app = express();
 const { engine } = require("express-handlebars");
 const port = 5482;
