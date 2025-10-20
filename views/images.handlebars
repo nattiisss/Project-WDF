@@ -15,6 +15,7 @@
         <p><b>{{username}}</b></p>
         <img src="/img/{{filename}}" alt="image">
         <p>{{description}}</p>
+        <p>{{created_at}}</p>
 
         {{#if ../session.isAdmin}}
           <form action="/images/delete/{{id}}" method="post">

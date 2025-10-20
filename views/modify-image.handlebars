@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="/css/eventpage.css" />
+
+<div id="main">
+  {{#if img.id}}
+    <h1>Modify Image</h1>
+  {{else}}
+    <h1>New Image</h1>
+  {{/if}}
+
+  <div>
+    {{#if img.id}}
+      <form action="/images/modify/{{img.id}}" method="post" enctype="multipart/form-data" id="imagesform">
+    {{else}}
+      <form action="/images/new" method="post" enctype="multipart/form-data" id="imagesform">
+    {{/if}}
+
+      <fieldset>
+        <legend>Image Details</legend>
+
+        <label for="description">Description:</label>
+        <textarea
+          name="description"
+          id="description"
+          rows="4"
+          cols="40"
+          placeholder="Enter image description"
+        >{{img.description}}</textarea>
+        <br />
+
+        <label for="filename">Change Filename (optional):</label>
+        <input
+          type="text"
+          name="filename"
+          id="filename"
+          placeholder="example.jpg"
+          value="{{img.filename}}"
+        />
+        <br />
+
+        <label for="image">Or upload new file:</label>
+        <input type="file" name="image" id="image" accept="image/*" />
+        <br />
+
+        <input type="submit" value="{{#if img.id}}Modify{{else}}Create{{/if}}" />
+      </fieldset>
+    </form>
+  </div>
+
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
+</div>

@@ -520,25 +520,66 @@ app.post("/images/delete/:id", (req, res) => {
 
 app.get("/images/modify/:id", (req, res) => {
   const id = req.params.id;
-  db.get("SELECT * FROM Images WHERE id=?", [id], (err, img) => {
-    if (err) return res.render("images", { error: "Error retrieving image." });
+
+  if (!req.session.isAdmin) {
+    return res.render("loggedin", {
+      error: "You must be logged in as admin to modify an image.",
+    });
+  }
+
+  db.get("SELECT * FROM Images WHERE id = ?", [id], (err, img) => {
+    if (err) {
+      console.error(err.message);
+      return res.render("images", { error: "Error retrieving image." });
+    }
+
+    if (!img) {
+      return res.render("images", { error: "Image not found." });
+    }
+
     res.render("modify-image", { img });
   });
 });
 
 app.post("/images/modify/:id", upload.single("image"), (req, res) => {
   const id = req.params.id;
-  const description = req.body.description;
-  const newFile = req.file ? req.file.filename : null;
+  const { description } = req.body;
+  let filename = req.body.filename; // for text filename input
 
-  const sql = newFile
-    ? `UPDATE Images SET description=?, filename=? WHERE id=?`
-    : `UPDATE Images SET description=? WHERE id=?`;
+  if (!req.session.isAdmin) {
+    return res.render("loggedin", {
+      error: "You must be logged in as admin to modify an image.",
+    });
+  }
 
-  const params = newFile ? [description, newFile, id] : [description, id];
+  // If user uploaded a new file, use its filename
+  if (req.file) {
+    filename = req.file.filename;
+  }
 
-  db.run(sql, params, (err) => {
-    if (err) console.log(err);
+  if (!filename || !description) {
+    return res.render("modify-image", {
+      img: { id, filename, description },
+      error: "Please fill in all fields.",
+    });
+  }
+
+  const sql = `
+    UPDATE Images
+    SET filename = ?, description = ?
+    WHERE id = ?
+  `;
+
+  db.run(sql, [filename, description, id], function (err) {
+    if (err) {
+      console.error("Database error:", err.message);
+      return res.render("modify-image", {
+        img: { id, filename, description },
+        error: "Error updating image.",
+      });
+    }
+
+    console.log(`Image ${id} updated successfully.`);
     res.redirect("/images");
   });
 });
