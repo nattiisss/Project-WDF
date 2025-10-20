@@ -14,13 +14,13 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const sqlite3 = require("sqlite3");
 const connectSqlite3 = require("connect-sqlite3");
-const dbFile = "my-projec-db copy1.db";
+const dbFile = "my-projec-db copy1.sqbpro";
 const db = new sqlite3.Database(dbFile);
 const SQLiteStore = connectSqlite3(session);
 
 app.use(
   session({
-    store: new SQLiteStore({ db: "my-projec-db copy1.db" }),
+    store: new SQLiteStore({ db: "my-projec-db copy1.sqbpro" }),
     saveUninitialized: false,
     resave: false,
     secret: "secretsecretmakapakapiegonlambada12$!birb...",
@@ -444,6 +444,26 @@ app.get("/about", (req, res) => {
 
 app.get("/images", (req, res) => {
   res.render("images", { pageClass: "images" });
+  app.get("/images", (req, res) => {
+    const sql = `
+    SELECT Images.id,
+           Images.filename,
+           Images.description,
+           Users.username,
+           Images.created_at
+    FROM Images
+    INNER JOIN Users
+      ON Images.user_id = Users.id
+  `;
+
+    db.all(sql, (err, rows) => {
+      if (err) {
+        console.log(err);
+        return res.render("images", { error: "Error loading images." });
+      }
+      res.render("images", { pics: rows, session: req.session });
+    });
+  });
 });
 
 app.post("/images/new", upload.single("image"), (req, res) => {
@@ -463,6 +483,43 @@ app.post("/images/new", upload.single("image"), (req, res) => {
       console.log(err);
       return res.render("images", { error: "Error uploading image." });
     }
+    res.redirect("/images");
+  });
+});
+
+app.post("/images/delete/:id", (req, res) => {
+  if (!req.session.isAdmin) {
+    return res.render("images", { error: "Admins only." });
+  }
+
+  const id = req.params.id;
+  db.run("DELETE FROM Images WHERE id = ?", [id], (err) => {
+    if (err) console.log(err);
+    res.redirect("/images");
+  });
+});
+
+app.get("/images/modify/:id", (req, res) => {
+  const id = req.params.id;
+  db.get("SELECT * FROM Images WHERE id=?", [id], (err, img) => {
+    if (err) return res.render("images", { error: "Error retrieving image." });
+    res.render("modify-image", { img });
+  });
+});
+
+app.post("/images/modify/:id", upload.single("image"), (req, res) => {
+  const id = req.params.id;
+  const description = req.body.description;
+  const newFile = req.file ? req.file.filename : null;
+
+  const sql = newFile
+    ? `UPDATE Images SET description=?, filename=? WHERE id=?`
+    : `UPDATE Images SET description=? WHERE id=?`;
+
+  const params = newFile ? [description, newFile, id] : [description, id];
+
+  db.run(sql, params, (err) => {
+    if (err) console.log(err);
     res.redirect("/images");
   });
 });

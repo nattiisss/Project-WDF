@@ -5,17 +5,23 @@
 {{/if}}
 
 <h2>Images</h2>
-<p>Get a look at some of the events!</p>
+{{#each pics}}
+  <div class="post">
+    <p><b>{{username}}</b></p>
+    <img src="/img/{{filename}}" alt="image">
+    <p>{{description}}</p>
 
-{{#if i.id}}
-    <form action="/images/modify/{{i.id}}" method="post" id="eventform" enctype="multipart/form-data">
-{{else}}
-  <form action="/images/new" method="post" enctype="multipart/form-data">
-  <input type="file" name="image" required>
-  <input type="text" name="description" placeholder="Say something...">
-  <button type="submit">Upload</button>
-</form>
-{{/if}}
+    {{#if ../session.isAdmin}}
+      <form action="/images/delete/{{id}}" method="post">
+        <button type="submit">Delete</button>
+      </form>
+      <form action="/images/modify/{{id}}" method="get">
+        <button type="submit">Edit</button>
+      </form>
+    {{/if}}
+  </div>
+{{/each}}
+
 
 <footer>
   <div class="footer-part-1">
