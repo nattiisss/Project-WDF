@@ -4,6 +4,7 @@
     <title>{{title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/css/main.css" />
+    <script src="/js/menubar.js" defer></script>
   </head>
   <body class="{{pageClass}}" style="font-family: system-ui;">
     <nav class="navbar">
@@ -19,8 +20,25 @@
       {{#if session.isLoggedIn}}
         <div class="nav-auth">
           <span>Welcome, {{session.un}}!</span>
-          <a href="/logout">Logout</a>
-        </div>
+         <div class="profile-container">
+  <img
+    src="https://img.icons8.com/windows/32/FFFFFF/user-male-circle.png"
+    alt="user-male-circle"
+    id="profileIcon"
+    class="profile-icon"
+  />
+
+  <!-- ✅ Add the ID here so JS & CSS can find it -->
+  <div id="profileMenu" class="profile-menu">
+    <ul>
+      <li><strong>{{session.un}}</strong></li>
+      <li><a href="/logout">Log out</a></li>
+      <li><form action="/account/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+  <button type="submit">Delete My Account</button>
+</form>></li>
+    </ul>
+  </div>
+</div>
       {{else}}
         <a href="/loggedin" class="login-link">Log in</a>
       {{/if}}

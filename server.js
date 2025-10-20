@@ -587,6 +587,35 @@ app.post("/images/modify/:id", upload.single("image"), (req, res) => {
 app.get("/contact", (req, res) => {
   res.render("contact", { pageClass: "contact" });
 });
+// Delete own account
+app.post("/account/delete", (req, res) => {
+  if (!req.session.isLoggedIn) {
+    return res.render("loggedin", {
+      error: "You must be logged in to delete your account.",
+    });
+  }
+
+  const userId = req.session.userId;
+
+  // Delete the user from the database
+  db.run("DELETE FROM Users WHERE id = ?", [userId], function (err) {
+    if (err) {
+      console.error("Error deleting account:", err.message);
+      return res.render("loggedin", { error: "Error deleting your account." });
+    }
+
+    // Destroy session after deletion
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.render("loggedin", {
+          error: "Account deleted but session could not be destroyed.",
+        });
+      }
+      res.redirect("/signin"); // Redirect to signup/login page
+    });
+  });
+});
 
 //errors
 app.use((req, res) => {
