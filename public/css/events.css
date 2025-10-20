@@ -49,7 +49,7 @@ h2 {
   align-items: center;
   gap: 2.5rem;
   padding-bottom: 3rem;
-  margin-top: 7rem;
+  margin-top: 5rem;
 }
 
 .event-wrapper {
@@ -185,4 +185,40 @@ h2 {
 .pagination .disabled {
   color: #292929;
   cursor: default;
+}
+
+.admin-actions {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.important {
+  background-color: #444444;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.important:hover {
+  background-color: #e74c3c;
+}
+
+.important.remove:hover {
+  background-color: #e74c3c;
+}
+
+.new-event {
+  text-align: left;
+  font-size: 1rem;
+  margin: 2rem 3rem;
+  background-color: #e74c3c;
+}
+
+.new-event:hover {
+  background-color: #676565;
 }

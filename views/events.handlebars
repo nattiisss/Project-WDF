@@ -14,18 +14,38 @@
   {{/each}}
 </ul>
 
+{{#if session.isAdmin}}
+  <div class="admin-new">
+   <form style="display:inline" method="GET" action="/events/new">
+  <button type="submit" class="important new-event">+ Add New Event</button>
+</form>
+  </div>
+{{/if}}
+
 <div class="events-container">
   {{#each events}}
   <div class="event-wrapper">
     <div class="event-info">
       <div class="event-image">
-         <img src="/img/image1.jpg" alt="{{title}}">
-        {{!-- <img src="{{image}}" alt="{{title}}"> --}}
+        <img src="/img/image1.jpg" alt="{{title}}">
+         {{!-- <img src="{{image}}" alt="{{title}}"> --}}
       </div>
+
       <div class="event-content">
         <h3 class="event-title">{{title}}</h3>
         <p class="event-location-time">{{formatTime date}} {{location}}</p>
         <a href="/events/{{id}}" class="read-more">Read more</a>
+
+        {{#if ../session.isAdmin}}
+          <div class="admin-actions">
+            <form style="display:inline" method="GET" action="/events/modify/{{id}}">
+              <button type="submit" class="important">Edit</button>
+            </form>
+            <form style="display:inline" method="POST" action="/events/delete/{{id}}">
+              <button type="submit" class="important remove">Remove</button>
+            </form>
+          </div>
+        {{/if}}
       </div>
     </div>
 
@@ -37,31 +57,29 @@
   </div>
   {{/each}}
 
-
-    <p class="pagination">
-  {{#if hasPrevPage}}
-    <a href="/events?page={{prevPage}}" class="arrow">&#8592;</a>
-  {{else}}
-    <span class="disabled arrow">&#8592;</span>
-  {{/if}}
-
-  {{#each pages}}
-    {{#ifEquals ../currentPage this}}
-      <span class="current">{{this}}</span>
+  <p class="pagination">
+    {{#if hasPrevPage}}
+      <a href="/events?page={{prevPage}}" class="arrow">&#8592;</a>
     {{else}}
-      <a href="/events?page={{this}}">{{this}}</a>
-    {{/ifEquals}}
-  {{/each}}
-
-  {{#if hasNextPage}}
-    <a href="/events?page={{nextPage}}" class="arrow">&#8594;</a>
-  {{else}}
-    <span class="disabled arrow">&#8594;</span>
-  {{/if}}
-</p>
-
-    {{#if error}}
-      <p class="error">{{error}}</p>
+      <span class="disabled arrow">&#8592;</span>
     {{/if}}
-  </div>
+
+    {{#each pages}}
+      {{#ifEquals ../currentPage this}}
+        <span class="current">{{this}}</span>
+      {{else}}
+        <a href="/events?page={{this}}">{{this}}</a>
+      {{/ifEquals}}
+    {{/each}}
+
+    {{#if hasNextPage}}
+      <a href="/events?page={{nextPage}}" class="arrow">&#8594;</a>
+    {{else}}
+      <span class="disabled arrow">&#8594;</span>
+    {{/if}}
+  </p>
+
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
 </div>
