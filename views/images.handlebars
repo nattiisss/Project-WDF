@@ -1,26 +1,51 @@
 <link rel="stylesheet" href="/css/images.css" />
+<script src="/js/images.js" defer></script>
 
 {{#if error}}
   <p class="error">{{error}}</p>
 {{/if}}
 
-<h2>Images</h2>
-{{#each pics}}
-  <div class="post">
-    <p><b>{{username}}</b></p>
-    <img src="/img/{{filename}}" alt="image">
-    <p>{{description}}</p>
+<h2>Post from all Events</h2>
+{{#if session.isLoggedIn}}
+  <div class="images-container">
+    <a href="/images/new" class="upload-btn">Upload New Image</a>
 
-    {{#if ../session.isAdmin}}
-      <form action="/images/delete/{{id}}" method="post">
-        <button type="submit">Delete</button>
-      </form>
-      <form action="/images/modify/{{id}}" method="get">
-        <button type="submit">Edit</button>
-      </form>
-    {{/if}}
+    {{#each pics}}
+      <div class="post">
+        <p><b>{{username}}</b></p>
+        <img src="/img/{{filename}}" alt="image">
+        <p>{{description}}</p>
+
+        {{#if ../session.isAdmin}}
+          <form action="/images/delete/{{id}}" method="post">
+            <button type="submit">Delete</button>
+          </form>
+          <form action="/images/modify/{{id}}" method="get">
+            <button type="submit">Edit</button>
+          </form>
+        {{/if}}
+      </div>
+    {{/each}}
   </div>
-{{/each}}
+{{else}}
+  <div class="images-container">
+    {{#each pics}}
+      <div class="post">
+        <p><b>{{username}}</b></p>
+        <img src="/img/{{filename}}" alt="image">
+        <p>{{description}}</p>
+      </div>
+    {{/each}}
+  </div>
+
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <p>You need to be logged in to view images.</p>
+      <a href="/loggedin"><button class="login-btn">Go to Login</button></a>
+    </div>
+  </div>
+{{/if}}
+
 
 
 <footer>

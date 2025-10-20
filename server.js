@@ -31,6 +31,10 @@ app.use((req, res, next) => {
   next();
 });
 
+function requireLogin(req, res, next) {
+  next();
+}
+
 //events
 app.get("/events", (req, res) => {
   const numberOfElementsPerPage = 5; // how many events per page
@@ -443,26 +447,29 @@ app.get("/about", (req, res) => {
   res.render("about", { pageClass: "about" });
 });
 
-app.get("/images", (req, res) => {
+app.get("/images", requireLogin, (req, res) => {
   const sql = `
-    SELECT Images.id,
-           Images.filename,
-           Images.description,
-           Users.username,
-           Images.created_at
+    SELECT Images.id, Images.filename, Images.description, Users.username, Images.created_at
     FROM Images
-    INNER JOIN Users
-      ON Images.user_id = Users.id
-    ORDER BY Images.created_at DESC
-  `;
+    INNER JOIN Users ON Images.user_id = Users.id`;
 
   db.all(sql, (err, rows) => {
-    if (err) {
-      console.log(err);
-      return res.render("images", { error: "Error loading images." });
-    }
+    if (err)
+      return res.render("images", {
+        error: "Error loading images.",
+        session: req.session,
+      });
     res.render("images", { pics: rows, session: req.session });
   });
+});
+
+app.get("/images/new", (req, res) => {
+  if (!req.session.isLoggedIn) {
+    return res.render("images", {
+      error: "You must be logged in to upload images.",
+    });
+  }
+  res.render("create-post");
 });
 
 app.post("/images/new", upload.single("image"), (req, res) => {
@@ -470,17 +477,30 @@ app.post("/images/new", upload.single("image"), (req, res) => {
     return res.render("images", { error: "You must be logged in." });
   }
 
+  if (!req.file) {
+    return res.render("form-images", {
+      error: "Please select an image to upload.",
+    });
+  }
+
+  const allowedTypes = ["image/jpeg", "image/png"];
+  if (!allowedTypes.includes(req.file.mimetype)) {
+    return res.render("form-images", {
+      error: "Only JPG and PNG files are allowed.",
+    });
+  }
+
   const filename = req.file.filename;
   const description = req.body.description;
   const userId = req.session.userId;
 
-  const sql = `INSERT INTO Images (filename, description, user_id)
-               VALUES (?, ?, ?)`;
+  const sql = `INSERT INTO Images (filename, description, user_id, created_at)
+               VALUES (?, ?, ?, datetime('now'))`;
 
   db.run(sql, [filename, description, userId], (err) => {
     if (err) {
       console.log(err);
-      return res.render("images", { error: "Error uploading image." });
+      return res.render("form-images", { error: "Error uploading image." });
     }
     res.redirect("/images");
   });

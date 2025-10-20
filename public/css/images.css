@@ -9,6 +9,57 @@ h2 {
   color: white;
   font-weight: 600;
 }
+
+.images-container.blur {
+  filter: blur(1rem);
+  pointer-events: none;
+  user-select: none;
+  transition: filter 0.3s;
+}
+.modal {
+  display: none;
+  position: fixed;
+  padding-top: 100px;
+  left: 0;
+  top: 6rem;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+}
+
+.login-btn {
+  padding: 10px 20px;
+  background-color: #1d72b8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: #155d8b;
+}
+
+.upload-btn {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 8px 15px;
+  background-color: #1d72b8;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
 img {
   max-width: 20%;
 }
