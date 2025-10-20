@@ -308,6 +308,7 @@ app.post("/loggedin", (req, res) => {
           if (result) {
             req.session.isLoggedIn = true;
             req.session.un = username;
+            req.session.userId = user.id;
             req.session.isAdmin = user.role == "admin";
             console.log(" >SESSION INFORMATION: ", JSON.stringify(req.session));
             res.render("loggedin");
@@ -443,9 +444,7 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/images", (req, res) => {
-  res.render("images", { pageClass: "images" });
-  app.get("/images", (req, res) => {
-    const sql = `
+  const sql = `
     SELECT Images.id,
            Images.filename,
            Images.description,
@@ -454,15 +453,15 @@ app.get("/images", (req, res) => {
     FROM Images
     INNER JOIN Users
       ON Images.user_id = Users.id
+    ORDER BY Images.created_at DESC
   `;
 
-    db.all(sql, (err, rows) => {
-      if (err) {
-        console.log(err);
-        return res.render("images", { error: "Error loading images." });
-      }
-      res.render("images", { pics: rows, session: req.session });
-    });
+  db.all(sql, (err, rows) => {
+    if (err) {
+      console.log(err);
+      return res.render("images", { error: "Error loading images." });
+    }
+    res.render("images", { pics: rows, session: req.session });
   });
 });
 
