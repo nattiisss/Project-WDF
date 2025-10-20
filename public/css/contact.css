@@ -2,15 +2,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-main {
-  flex: 1;
+  background-color: black;
 }
 #background {
   position: absolute; /* stays in document flow but behind content */
@@ -134,8 +126,9 @@ footer {
   width: 100%;
   padding-bottom: 2vw;
   padding-top: 5vw;
-  position: absolute;
+  margin-top: 30vw;
 }
+
 footer .footer-part-1 {
   display: flex;
   flex-direction: row;
@@ -189,4 +182,161 @@ footer p {
   width: 20%;
   color: white;
   border-color: #ff676a;
+}
+/* TABLET VERSION*/
+@media (max-width: 651px) {
+  .contact-us {
+    width: 100%;
+    padding-left: 10%;
+    margin-top: 0vw;
+    justify-content: left;
+  }
+  h1 {
+    text-align: left;
+    padding-left: 10%;
+    margin-top: 10vw;
+  }
+  .contact-us .images {
+    width: 10%;
+  }
+  .contact-us .handles .gap {
+    padding-bottom: 5vw;
+  }
+
+  /*Contact Form*/
+  .contact-form {
+    flex-direction: column;
+    margin-top: 10vw;
+  }
+  .contact-form h1 {
+    margin-right: 5%;
+    margin-bottom: 5vw;
+  }
+  /*Fill in form*/
+  .contact-form form {
+    width: 50%;
+    align-self: center;
+    padding: 1.3em;
+  }
+  .contact-form input[type="text"],
+  select,
+  textarea {
+    border-radius: 3vw;
+  }
+  .contact-form form input {
+    height: 5vw;
+    font-size: 2.5vw;
+  }
+  .contact-form form textarea {
+    height: 10vw;
+    border-radius: 2.5vw;
+    font-size: 2.5vw;
+  }
+  .contact-form form label {
+    margin: 1.2vw 0 1vw 1vw;
+  }
+  .contact-form form .contactsend {
+    border-radius: 5vw;
+    font-size: 3.5vw;
+    height: 5vw;
+    margin-top: 2vw;
+  }
+
+  /*Footer*/
+  footer {
+    padding-bottom: 2vw;
+    padding-top: 5vw;
+    margin-top: 20vw;
+    border-top: solid 0.5vw #ff676a;
+  }
+
+  footer .footer-part-1 {
+    flex-direction: column;
+    justify-content: none;
+    align-items: center;
+    padding-bottom: 2vw;
+    margin-top: 0;
+  }
+  footer .imgs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto 5vw;
+  }
+  footer .part2 img {
+    width: 50%;
+    padding-right: 20%;
+  }
+}
+
+/* PHONE VERSION*/
+@media (max-width: 420px) {
+  #background img {
+    width: 200%;
+    position: absolute;
+    left: -50%;
+  }
+  .contact-us {
+    width: 100%;
+    padding-left: 5%;
+    margin-top: 0vw;
+    justify-content: center;
+  }
+  h1 {
+    text-align: center;
+  }
+  .contact-us .images {
+    width: 15%;
+    justify-self: center;
+  }
+
+  .contact-us .handles .gap {
+    padding-bottom: 5vw;
+  }
+
+  /*Contact Form*/
+  .contact-form {
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 25vw;
+  }
+  .contact-form h1 {
+    margin-right: 5%;
+  }
+  .contact-form .line {
+    display: none;
+  }
+  /*Fill in form*/
+  .contact-form form {
+    width: 80%;
+    align-self: center;
+    padding: 1.3em;
+  }
+  .contact-form input[type="text"],
+  select,
+  textarea {
+    border-radius: 3vw;
+  }
+  .contact-form form input {
+    height: 9vw;
+    font-size: 3.5vw;
+  }
+  .contact-form form textarea {
+    height: 15vw;
+    border-radius: 2.5vw;
+    font-size: 3.5vw;
+  }
+  .contact-form form label {
+    margin: 1.2vw 0 1vw 1vw;
+  }
+  .contact-form form .contactsend {
+    border-radius: 5vw;
+    font-size: 6vw;
+    height: 10vw;
+    margin-top: 3vw;
+  }
 }
