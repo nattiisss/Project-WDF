@@ -42,3 +42,39 @@ h2 {
   color: black;
   border-radius: 30px;
 }
+
+.pagination {
+  margin-top: 1rem;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #ffffff;
+
+  transition: all 0.2s;
+}
+
+.pagination a:hover {
+  background-color: #ff6961;
+  color: white;
+  border-radius: 30px;
+}
+
+.pagination .current {
+  background-color: #ff6961;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+}
+
+.pagination .disabled {
+  color: #292929;
+  cursor: default;
+}
