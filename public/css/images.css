@@ -14,8 +14,9 @@ h2 {
   filter: blur(1rem);
   pointer-events: none;
   user-select: none;
-  transition: filter 0.3s;
+  transition: filter 0.2s;
 }
+
 .modal {
   display: none;
   position: fixed;
@@ -28,33 +29,44 @@ h2 {
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: rgba(255, 255, 255, 0.8);
   margin: auto;
-  padding: 20px;
+  padding: 2rem;
   border-radius: 10px;
-  width: 300px;
+  width: 25rem;
   text-align: center;
+  justify-content: center;
   position: relative;
+}
+
+.modal-content p {
+  color: black;
+  font-size: 1.3rem;
+  font-weight: 500;
 }
 
 .login-btn {
   padding: 10px 20px;
-  background-color: #1d72b8;
-  color: white;
+  font-size: 1rem;
+  background-color: #73a4ed;
+  color: rgb(254, 254, 254);
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .login-btn:hover {
-  background-color: #155d8b;
+  background-color: #696a6a;
+  color: rgb(254, 254, 254);
+  font-weight: 600;
 }
 
 .upload-btn {
   display: inline-block;
   margin-bottom: 15px;
   padding: 8px 15px;
-  background-color: #1d72b8;
+  background-color: #ff6961;
   color: white;
   border-radius: 5px;
   text-decoration: none;
@@ -65,7 +77,6 @@ img {
 }
 
 p {
-  padding-left: 4rem;
   color: rgb(215, 213, 213);
 }
 

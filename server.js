@@ -299,32 +299,44 @@ app.get("/loggedin", (req, res) => {
 app.post("/loggedin", (req, res) => {
   const { username, password } = req.body;
   console.log(`Here comes the data: ${username} - ${password}`);
-  db.get("SELECT * FROM Users where username=? ", [username], (error, user) => {
-    if (error) {
-      console.log(error);
-      res.render("loggedin", { error });
-    } else {
+
+  db.get(
+    "SELECT * FROM Users WHERE username = ?",
+    [username],
+    (error, user) => {
+      if (error) {
+        console.log(error);
+        return res.render("loggedin", { error: "Database error." });
+      }
+
+      if (!user) {
+        console.log("User not found");
+        return res.render("loggedin", { error: "User not found." });
+      }
+
       bcrypt.compare(password, user.password, (error, result) => {
         if (error) {
           console.log(error);
-          res.render("loggedin", { error });
-        } else {
-          if (result) {
-            req.session.isLoggedIn = true;
-            req.session.un = username;
-            req.session.userId = user.id;
-            req.session.isAdmin = user.role == "admin";
-            console.log(" >SESSION INFORMATION: ", JSON.stringify(req.session));
-            res.render("loggedin");
-          } else {
-            res.render("loggedin", { error: "Error in the password" });
-            console.log("Wrong Password");
-          }
+          return res.render("loggedin", { error: "Error checking password." });
         }
+
+        if (!result) {
+          console.log("Wrong Password");
+          return res.render("loggedin", { error: "Wrong password." });
+        }
+
+        req.session.isLoggedIn = true;
+        req.session.un = username;
+        req.session.userId = user.id;
+        req.session.isAdmin = user.role == "admin";
+
+        console.log(" >SESSION INFORMATION: ", JSON.stringify(req.session));
+        res.redirect("/home");
       });
     }
-  });
+  );
 });
+
 /*if (username === "admin") {
     bcrypt.compare(password, adminPassword, (err, result) => {
       if (err) {
@@ -459,7 +471,11 @@ app.get("/images", requireLogin, (req, res) => {
         error: "Error loading images.",
         session: req.session,
       });
-    res.render("images", { pics: rows, session: req.session });
+    res.render("images", {
+      pics: rows,
+      session: req.session,
+      pageClass: "images",
+    });
   });
 });
 
