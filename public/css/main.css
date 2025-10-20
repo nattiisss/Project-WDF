@@ -85,3 +85,69 @@ html {
 .login-link:hover {
   color: #70aaff;
 }
+
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Hidden menubar*/
+.menu {
+  position: absolute;
+  top: 2.8rem;
+  right: 0;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(-15px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  min-width: 150px;
+  z-index: 2000;
+}
+
+.menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  padding: 10px 15px;
+}
+
+.menu li a,
+.menu li button {
+  text-decoration: none;
+  color: inherit;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.menu li:hover {
+  background-color: #f0f0f0;
+}
