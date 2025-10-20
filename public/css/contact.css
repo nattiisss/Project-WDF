@@ -1,28 +1,31 @@
 body {
-  margin: 0;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: black;
 }
 #background {
-  position: absolute; /* stays put even when scrolling */
+  position: absolute; /* stays in document flow but behind content */
   top: 0;
   left: 0;
   width: 100%;
-  height: vw;
-  z-index: -100;
-  overflow: hidden;
+  height: auto; /* auto to keep image aspect ratio */
+  z-index: -1; /* behind everything */
 }
 
 #background img {
   width: 100%;
-  height: auto;
+  height: auto; /* keep original aspect ratio */
   display: block;
   object-fit: contain; /* keeps full image visible */
 }
+
 .contact-us {
   width: 25%;
   display: flex;
   flex-direction: row;
   padding-left: 10%;
+  margin-top: 5vw;
 }
 h1 {
   padding-left: 10%;
@@ -54,20 +57,33 @@ h1 {
   justify-content: space-evenly;
   padding-top: 5vw;
 }
-form {
+.contact-form h1 {
+  justify-self: center;
+  align-self: center;
+  margin-right: 5%;
+}
+
+.contact-form .line {
+  margin-top: 0.3vw;
+  width: 110%;
+}
+.contact-form form {
   width: 30%;
   background-color: #353434;
   padding: 2vw;
   border-radius: 2vw;
 }
-form p {
-  padding-left: 5%;
+.contact-form form h1 {
+  justify-self: left;
+  align-self: center;
+  padding-left: 0%;
+  margin: 0.2vw 0 1vw 0;
 }
-form p {
-  padding: 0;
-  margin: 0;
+.contact-form form p {
+  padding-left: 0%;
+  margin: 1vw 0 0 0;
 }
-input[type="text"],
+.contact-form input[type="text"],
 select,
 textarea {
   width: 100%;
@@ -75,31 +91,34 @@ textarea {
   border: 0.1vw solid white;
   border-radius: 1.5vw;
 }
-form input::placeholder,
-form textarea::placeholder {
-  padding: 0.6vw 0.6vw;
-}
-form input {
+.contact-form form input {
   height: 2vw;
+  color: white;
+  padding-left: 2%;
 }
-form textarea {
+.contact-form form textarea {
   height: 6vw;
   border-radius: 1vw;
+  color: white;
+  margin-bottom: 1vw;
+  padding-left: 2%;
 }
-form label {
-  padding-bottom: 10vw;
+.contact-form form label {
+  display: block;
+  margin: 0.5vw 0 0.25vw;
 }
-
-input[type="submit"] {
+.contact-form form .contactsend {
   background-color: #ff676a;
   color: white;
   width: 100%;
-  margin-top: 1vw;
-  padding: 2vw 0vw;
   border: none;
   border-radius: 2vw;
   cursor: pointer;
   font-size: 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4vw;
 }
 
 footer {
@@ -107,7 +126,9 @@ footer {
   width: 100%;
   padding-bottom: 2vw;
   padding-top: 5vw;
+  margin-top: 30vw;
 }
+
 footer .footer-part-1 {
   display: flex;
   flex-direction: row;
@@ -156,9 +177,166 @@ footer p {
   color: white;
   padding-left: 0.3vw;
 }
-.form .send {
+.form .footersend {
   background-color: #ff676a;
   width: 20%;
   color: white;
   border-color: #ff676a;
+}
+/* TABLET VERSION*/
+@media (max-width: 651px) {
+  .contact-us {
+    width: 100%;
+    padding-left: 10%;
+    margin-top: 0vw;
+    justify-content: left;
+  }
+  h1 {
+    text-align: left;
+    padding-left: 10%;
+    margin-top: 10vw;
+  }
+  .contact-us .images {
+    width: 10%;
+  }
+  .contact-us .handles .gap {
+    padding-bottom: 5vw;
+  }
+
+  /*Contact Form*/
+  .contact-form {
+    flex-direction: column;
+    margin-top: 10vw;
+  }
+  .contact-form h1 {
+    margin-right: 5%;
+    margin-bottom: 5vw;
+  }
+  /*Fill in form*/
+  .contact-form form {
+    width: 50%;
+    align-self: center;
+    padding: 1.3em;
+  }
+  .contact-form input[type="text"],
+  select,
+  textarea {
+    border-radius: 3vw;
+  }
+  .contact-form form input {
+    height: 5vw;
+    font-size: 2.5vw;
+  }
+  .contact-form form textarea {
+    height: 10vw;
+    border-radius: 2.5vw;
+    font-size: 2.5vw;
+  }
+  .contact-form form label {
+    margin: 1.2vw 0 1vw 1vw;
+  }
+  .contact-form form .contactsend {
+    border-radius: 5vw;
+    font-size: 3.5vw;
+    height: 5vw;
+    margin-top: 2vw;
+  }
+
+  /*Footer*/
+  footer {
+    padding-bottom: 2vw;
+    padding-top: 5vw;
+    margin-top: 20vw;
+    border-top: solid 0.5vw #ff676a;
+  }
+
+  footer .footer-part-1 {
+    flex-direction: column;
+    justify-content: none;
+    align-items: center;
+    padding-bottom: 2vw;
+    margin-top: 0;
+  }
+  footer .imgs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto 5vw;
+  }
+  footer .part2 img {
+    width: 50%;
+    padding-right: 20%;
+  }
+}
+
+/* PHONE VERSION*/
+@media (max-width: 420px) {
+  #background img {
+    width: 200%;
+    position: absolute;
+    left: -50%;
+  }
+  .contact-us {
+    width: 100%;
+    padding-left: 5%;
+    margin-top: 0vw;
+    justify-content: center;
+  }
+  h1 {
+    text-align: center;
+  }
+  .contact-us .images {
+    width: 15%;
+    justify-self: center;
+  }
+
+  .contact-us .handles .gap {
+    padding-bottom: 5vw;
+  }
+
+  /*Contact Form*/
+  .contact-form {
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 25vw;
+  }
+  .contact-form h1 {
+    margin-right: 5%;
+  }
+  .contact-form .line {
+    display: none;
+  }
+  /*Fill in form*/
+  .contact-form form {
+    width: 80%;
+    align-self: center;
+    padding: 1.3em;
+  }
+  .contact-form input[type="text"],
+  select,
+  textarea {
+    border-radius: 3vw;
+  }
+  .contact-form form input {
+    height: 9vw;
+    font-size: 3.5vw;
+  }
+  .contact-form form textarea {
+    height: 15vw;
+    border-radius: 2.5vw;
+    font-size: 3.5vw;
+  }
+  .contact-form form label {
+    margin: 1.2vw 0 1vw 1vw;
+  }
+  .contact-form form .contactsend {
+    border-radius: 5vw;
+    font-size: 6vw;
+    height: 10vw;
+    margin-top: 3vw;
+  }
 }
