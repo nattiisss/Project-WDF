@@ -108,6 +108,33 @@ body {
   margin-top: 1rem;
 }
 
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  width: 40%;
+}
+.comment-form textarea {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  min-height: 5rem;
+}
+.comment-form button {
+  align-self: flex-end;
+  padding: 0.4rem 1rem;
+  border: none;
+  background: #e63946;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.comment-form button:hover {
+  background: #d62828;
+}
+
 /* Error styling */
 .error {
   color: #ff6961;

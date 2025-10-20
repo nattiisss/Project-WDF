@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/eventpage.css" />
 
 <a href="/events" class="go-back">← Go Back</a>
+
 <div class="event-container">
   {{#if e}}
     <div class="event-card">
@@ -26,7 +27,19 @@
                 <span class="comment-user">{{username}}</span>
                 <small class="comment-date">{{created_at}}</small>
               </div>
+
               <p class="comment-text">{{content}}</p>
+
+              {{#if ../session.isAdmin}}
+                <form
+                  action="/events/{{../e.id}}/comments/{{id}}/delete"
+                  method="POST"
+                  class="delete-comment-form"
+                  onsubmit="return confirm('Are you sure you want to delete this comment?');"
+                >
+                  <button type="submit" class="delete-comment">Delete</button>
+                </form>
+              {{/if}}
             </li>
           {{/each}}
         </ul>
@@ -34,6 +47,22 @@
         <p class="no-comments">No comments yet. Be the first to comment!</p>
       {{/if}}
     </div>
+
+    {{!-- ✅ Add create comment form (for logged-in users) --}}
+    {{#if session.isLoggedIn}}
+      <form
+        action="/events/{{e.id}}/comments"
+        method="POST"
+        class="comment-form"
+      >
+        <textarea
+          name="content"
+          placeholder="Write your comment..."
+          required
+        ></textarea>
+        <button type="submit">Post Comment</button>
+      </form>
+    {{/if}}
   {{else}}
     {{#if error}}
       <p class="error">{{error}}</p>

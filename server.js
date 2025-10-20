@@ -212,6 +212,61 @@ app.get("/events/:eventsid", (req, res) => {
   });
 });
 
+app.post("/events/:eventsid/comments", (req, res) => {
+  const eventId = req.params.eventsid;
+  const userId = req.session.userId;
+  const content = req.body.content;
+
+  if (!req.session.isLoggedIn) {
+    return res.render("loggedin", {
+      error: "You must be logged in to comment.",
+    });
+  }
+
+  if (!content || content.trim() === "") {
+    return res.redirect(`/events/${eventId}`);
+  }
+
+  const sql = `
+    INSERT INTO Comments (event_id, user_id, content, created_at)
+    VALUES (?, ?, ?, datetime('now'))
+  `;
+
+  db.run(sql, [eventId, userId, content], (err) => {
+    if (err) {
+      console.error("Error inserting comment:", err.message);
+      return res.render("one-event", {
+        e: { id: eventId },
+        error: "Error saving your comment.",
+      });
+    }
+    res.redirect(`/events/${eventId}`);
+  });
+});
+
+app.post("/events/:eventsid/comments/:commentid/delete", (req, res) => {
+  const eventId = req.params.eventsid;
+  const commentId = req.params.commentid;
+
+  if (!req.session.isAdmin) {
+    return res.status(403).send("Forbidden");
+  }
+
+  const sql = `DELETE FROM Comments WHERE id = ?`;
+
+  db.run(sql, [commentId], (err) => {
+    if (err) {
+      console.error("Error deleting comment:", err.message);
+      return res.render("one-event", {
+        e: { id: eventId },
+        error: "Error deleting comment.",
+      });
+    }
+
+    res.redirect(`/events/${eventId}`);
+  });
+});
+
 // edit events
 app.get("/events/modify/:eventsid", (req, res) => {
   let myid = req.params.eventsid;
