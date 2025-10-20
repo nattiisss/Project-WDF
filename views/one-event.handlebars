@@ -1,12 +1,32 @@
 <link rel="stylesheet" href="/css/eventpage.css" />
-<div>
-  <h1>Event name</h1>
-  <div>
-    <h2>{{e.title}} - {{e.date}}</h2>
-    <p> {{e.description}}</p>
 
+<div class="event-container">
+  {{#if e}}
+    <h1>{{e.title}}</h1>
+    <p><strong>Date:</strong> {{e.date}}</p>
+    <p><strong>Location:</strong> {{e.location}}</p>
+    <p>{{e.description}}</p>
+
+    <hr />
+
+    <h3>Comments</h3>
+
+    {{#if comments.length}}
+      <ul class="comments-list">
+        {{#each comments}}
+          <li>
+            <p><strong>{{username}}</strong> said:</p>
+            <p>{{content}}</p>
+            <small>{{created_at}}</small>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <p>No comments yet. Be the first to comment!</p>
+    {{/if}}
+  {{else}}
     {{#if error}}
       <p class="error">{{error}}</p>
     {{/if}}
-  </div>
+  {{/if}}
 </div>

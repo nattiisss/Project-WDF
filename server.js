@@ -172,18 +172,37 @@ app.post("/events/new", (req, res) => {
 app.get("/events/:eventsid", (req, res) => {
   const myid = req.params.eventsid;
 
-  db.get("SELECT * FROM events WHERE id=?", [myid], (err, theEvent) => {
+  db.get("SELECT * FROM events WHERE id = ?", [myid], (err, theEvent) => {
     if (err) {
       console.error(err.message);
       return res.render("one-event", { error: "Error retrieving event." });
     }
-    console.log(` - -> Retrieved ${theEvent ? 1 : 0} event from the database.`);
-    console.log(` - -> Event: ${JSON.stringify(theEvent, null, 2)}`);
 
     if (!theEvent) {
       return res.render("one-event", { error: "Event not found." });
     }
-    res.render("one-event", { e: theEvent });
+
+    // ✅ Only query comments after we have the event
+    const commentsSql = `
+      SELECT Comments.id, Comments.content, Comments.created_at, Users.username
+      FROM Comments
+      INNER JOIN Users ON Comments.user_id = Users.id
+      WHERE Comments.event_id = ?
+      ORDER BY Comments.created_at DESC
+    `;
+
+    db.all(commentsSql, [myid], (err2, comments) => {
+      if (err2) {
+        console.error(err2.message);
+        return res.render("one-event", {
+          e: theEvent,
+          error: "Error retrieving comments.",
+        });
+      }
+
+      // ✅ Render once here with both event and comments
+      res.render("one-event", { e: theEvent, comments });
+    });
   });
 });
 
