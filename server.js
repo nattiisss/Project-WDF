@@ -446,6 +446,27 @@ app.get("/images", (req, res) => {
   res.render("images", { pageClass: "images" });
 });
 
+app.post("/images/new", upload.single("image"), (req, res) => {
+  if (!req.session.isLoggedIn) {
+    return res.render("images", { error: "You must be logged in." });
+  }
+
+  const filename = req.file.filename;
+  const description = req.body.description;
+  const userId = req.session.userId;
+
+  const sql = `INSERT INTO Images (filename, description, user_id)
+               VALUES (?, ?, ?)`;
+
+  db.run(sql, [filename, description, userId], (err) => {
+    if (err) {
+      console.log(err);
+      return res.render("images", { error: "Error uploading image." });
+    }
+    res.redirect("/images");
+  });
+});
+
 app.get("/contact", (req, res) => {
   res.render("contact", { pageClass: "contact" });
 });

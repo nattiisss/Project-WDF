@@ -10,8 +10,11 @@
 {{#if i.id}}
     <form action="/images/modify/{{i.id}}" method="post" id="eventform" enctype="multipart/form-data">
 {{else}}
-    <form action="/images/new" method="post" id="eventform" enctype="multipart/form-data">
-    i
+  <form action="/images/new" method="post" enctype="multipart/form-data">
+  <input type="file" name="image" required>
+  <input type="text" name="description" placeholder="Say something...">
+  <button type="submit">Upload</button>
+</form>
 {{/if}}
 
 <footer>
