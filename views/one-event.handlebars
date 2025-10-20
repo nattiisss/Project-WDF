@@ -1,29 +1,39 @@
 <link rel="stylesheet" href="/css/eventpage.css" />
 
+<a href="/events" class="go-back">← Go Back</a>
 <div class="event-container">
   {{#if e}}
-    <h1>{{e.title}}</h1>
-    <p><strong>Date:</strong> {{e.date}}</p>
-    <p><strong>Location:</strong> {{e.location}}</p>
-    <p>{{e.description}}</p>
+    <div class="event-card">
+      <div class="event-header">
+        <h1 class="event-title">{{e.title}}</h1>
+        <p class="event-date"><strong>Date:</strong> {{e.date}}</p>
+        <p class="event-location"><strong>Location:</strong> {{e.location}}</p>
+      </div>
 
-    <hr />
+      <div class="event-description">
+        <p>{{e.description}}</p>
+      </div>
+    </div>
 
-    <h3>Comments</h3>
+    <div class="comments-section">
+      <h3>Comments</h3>
 
-    {{#if comments.length}}
-      <ul class="comments-list">
-        {{#each comments}}
-          <li>
-            <p><strong>{{username}}</strong> said:</p>
-            <p>{{content}}</p>
-            <small>{{created_at}}</small>
-          </li>
-        {{/each}}
-      </ul>
-    {{else}}
-      <p>No comments yet. Be the first to comment!</p>
-    {{/if}}
+      {{#if comments.length}}
+        <ul class="comments-list">
+          {{#each comments}}
+            <li class="comment-item">
+              <div class="comment-header">
+                <span class="comment-user">{{username}}</span>
+                <small class="comment-date">{{created_at}}</small>
+              </div>
+              <p class="comment-text">{{content}}</p>
+            </li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <p class="no-comments">No comments yet. Be the first to comment!</p>
+      {{/if}}
+    </div>
   {{else}}
     {{#if error}}
       <p class="error">{{error}}</p>
