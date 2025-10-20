@@ -31,33 +31,66 @@ app.use((req, res, next) => {
 
 //events
 app.get("/events", (req, res) => {
-  const eventsSql = `
-    SELECT Events.id AS id,
-           Events.title,
-           Events.description,
-           Events.date,
-           Events.location,
-           "Event Categories".name AS category_name
-    FROM Events
-    INNER JOIN eventshavecategories
-    ON Events.id = eventshavecategories.event_id
-    INNER JOIN "Event Categories"
-    ON eventshavecategories.category_id = "Event Categories".id
-  `;
+  const numberOfElementsPerPage = 5; // how many events per page
+  const currentPage = parseInt(req.query.page) || 1;
+  const offset = (currentPage - 1) * numberOfElementsPerPage;
 
+  const countSql = `SELECT COUNT(*) as totalEvents FROM "Events"`;
+  const eventsSql = `
+    SELECT "Events".id AS id,
+           "Events".title,
+           "Events".description,
+           "Events".date,
+           "Events".location,
+           "Event Categories".name AS category_name
+    FROM "Events"
+    INNER JOIN eventshavecategories
+      ON "Events".id = eventshavecategories.event_id
+    INNER JOIN "Event Categories"
+      ON eventshavecategories.category_id = "Event Categories".id
+    LIMIT ? OFFSET ?
+  `;
   const categoriesSql = `SELECT * FROM "Event Categories"`;
 
-  db.all(eventsSql, (err, events) => {
-    if (err) return res.render("events", { error: "Error retrieving events." });
+  db.get(countSql, (err, countRow) => {
+    if (err) {
+      console.error(err.message);
+      return res.render("events", { error: "Database error" });
+    }
 
-    db.all(categoriesSql, (err2, categories) => {
-      if (err2)
-        return res.render("events", { error: "Error retrieving categories." });
-      res.render("events", {
-        events,
-        categories,
-        activeCategoryIsAll: true,
-        pageClass: "events",
+    const totalEvents = countRow.totalEvents;
+    const totalPages = Math.ceil(totalEvents / numberOfElementsPerPage);
+
+    db.all(eventsSql, [numberOfElementsPerPage, offset], (err2, events) => {
+      if (err2) {
+        console.error(err2.message);
+        return res.render("events", { error: "Error retrieving events." });
+      }
+
+      db.all(categoriesSql, (err3, categories) => {
+        if (err3) {
+          console.error(err3.message);
+          return res.render("events", {
+            error: "Error retrieving categories.",
+          });
+        }
+
+        const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+        res.render("events", {
+          events,
+          categories,
+          activeCategoryIsAll: true,
+          pageClass: "events",
+          currentPage,
+          totalPages,
+          hasPrevPage: currentPage > 1,
+          hasNextPage: currentPage < totalPages,
+          prevPage: currentPage - 1,
+          nextPage: currentPage + 1,
+          pages,
+          session: req.session,
+        });
       });
     });
   });

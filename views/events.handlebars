@@ -50,6 +50,21 @@
           </li>
       {{/each}}
     </ul>
+    <p>
+      <a href="/events?page=1">First</a>
+      {{#if hasPrevPage}}
+      <a href="/events?page={{prevPage}}">Previous</a>
+      {{/if}}
+
+      {{#each pages}}
+      <a href="/events?page={{this}}">{{this}}</a>
+      {{/each}}
+
+      {{#if hasNextPage}}
+      <a href="/events?page={{nextPage}}">Next</a>
+      {{/if}}
+      <a href="/events?page={{totalPages}}">Last</a>
+    </p>
     {{#if error}}
       <p class="error">{{error}}</p>
     {{/if}}
