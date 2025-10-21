@@ -62,7 +62,9 @@ h2 {
   font-weight: 600;
 }
 
-.upload-btn {
+.upload-btn,
+.delete-btn,
+.edit-btn {
   display: inline-block;
   margin-bottom: 15px;
   padding: 8px 15px;
@@ -70,6 +72,20 @@ h2 {
   color: white;
   border-radius: 5px;
   text-decoration: none;
+}
+.admin {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1em;
+  border: none;
+}
+.admin button {
+  border: none;
+}
+.delete-btn,
+.edit-btn {
+  font-size: 1em;
 }
 .nav {
   display: flex;
