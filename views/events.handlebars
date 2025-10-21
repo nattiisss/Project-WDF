@@ -27,8 +27,11 @@
   <div class="event-wrapper">
     <div class="event-info">
       <div class="event-image">
-        <img src="/img/image1.jpg" alt="{{title}}">
-         {{!-- <img src="{{image}}" alt="{{title}}"> --}}
+         {{#if images}}
+  <img src="/img/{{images}}" alt="{{title}}" class="event-image">
+{{else}}
+  <img src="/img/default-event.jpg" alt="Default event image" class="event-image">
+{{/if}}
       </div>
 
       <div class="event-content">

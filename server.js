@@ -48,7 +48,9 @@ app.get("/events", (req, res) => {
            "Events".description,
            "Events".date,
            "Events".location,
+           "Events".images,
            "Event Categories".name AS category_name
+           
     FROM "Events"
     INNER JOIN eventshavecategories
       ON "Events".id = eventshavecategories.event_id
@@ -112,7 +114,9 @@ app.get("/events/category/:id", (req, res) => {
            Events.description,
            Events.date,
            Events.location,
+           Events.images,
            "Event Categories".name AS category_name
+           
     FROM Events
     INNER JOIN eventshavecategories
     ON Events.id = eventshavecategories.event_id
@@ -159,8 +163,8 @@ app.post("/events/new", (req, res) => {
   }
 
   const sql = `
-    INSERT INTO events (title, description, location, date)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO events (title, description, location, date, images)
+    VALUES (?, ?, ?, ?, ?)
   `;
 
   db.run(sql, [title, desc, location, date], function (err) {
@@ -187,8 +191,6 @@ app.get("/events/:eventsid", (req, res) => {
     if (!theEvent) {
       return res.render("one-event", { error: "Event not found." });
     }
-
-    // ✅ Only query comments after we have the event
     const commentsSql = `
       SELECT Comments.id, Comments.content, Comments.created_at, Users.username
       FROM Comments
@@ -206,7 +208,6 @@ app.get("/events/:eventsid", (req, res) => {
         });
       }
 
-      // ✅ Render once here with both event and comments
       res.render("one-event", { e: theEvent, comments });
     });
   });
