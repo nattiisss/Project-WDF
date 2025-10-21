@@ -3,3 +3,27 @@ body {
   margin: 0;
   padding: 0;
 }
+.go-back {
+  color: white;
+  text-decoration: none;
+  padding-left: 3.5em;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.go-back:hover {
+  text-decoration: underline;
+}
+.uploadform {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  width: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 1em;
+  padding: 3em;
+  margin-top: 2em;
+}
+.uploadform h1 {
+  align-self: center;
+  margin: 0 0 1em;
+}

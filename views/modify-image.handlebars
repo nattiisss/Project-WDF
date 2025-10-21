@@ -1,13 +1,9 @@
 <link rel="stylesheet" href="/css/modify-post.css" />
+<a href="/images" class="go-back">&larr; Go back to Posts</a>
 
-<div id="main">
-  {{#if img.id}}
+<div class="uploadform">
     <h1>Modify Image</h1>
-  {{else}}
-    <h1>New Image</h1>
-  {{/if}}
-
-  <div>
+  
     {{#if img.id}}
       <form action="/images/modify/{{img.id}}" method="post" enctype="multipart/form-data" id="imagesform">
     {{else}}
@@ -25,7 +21,6 @@
           cols="40"
           placeholder="Enter image description"
         >{{img.description}}</textarea>
-        <br />
 
         <label for="filename">Change Filename (optional):</label>
         <input
@@ -35,11 +30,9 @@
           placeholder="example.jpg"
           value="{{img.filename}}"
         />
-        <br />
 
         <label for="image">Or upload new file:</label>
         <input type="file" name="image" id="image" accept="image/*" />
-        <br />
 
         <input type="submit" value="{{#if img.id}}Modify{{else}}Create{{/if}}" />
       </fieldset>
@@ -49,4 +42,3 @@
   {{#if error}}
     <p class="error">{{error}}</p>
   {{/if}}
-</div>
