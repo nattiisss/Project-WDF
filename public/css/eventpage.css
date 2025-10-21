@@ -21,6 +21,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  margin-top: 1.4rem;
 }
 
 /* Event card styling */
@@ -133,11 +134,11 @@ body {
   border: none;
   background: #e63946;
   color: white;
-  border-radius: 6px;
+  border-radius: 30px;
   cursor: pointer;
 }
 .comment-form button:hover {
-  background: #d62828;
+  background: #a0a0a0;
 }
 
 /* Error styling */
@@ -211,4 +212,130 @@ footer p {
   width: 20%;
   color: white;
   border-color: #ff676a;
+}
+
+/* responsive */
+@media (max-width: 621px) {
+  .event-container {
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .event-card,
+  .comments-section {
+    width: 90%;
+    padding: 1.5rem 1.8rem;
+  }
+
+  .event-title {
+    font-size: 1.7rem;
+  }
+
+  .event-date,
+  .event-location {
+    font-size: 1rem;
+  }
+
+  .event-description {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .comments-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .comment-item {
+    padding: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .comment-user {
+    font-size: 0.9rem;
+  }
+
+  .comment-date {
+    font-size: 0.75rem;
+  }
+
+  .comment-text {
+    font-size: 0.95rem;
+  }
+
+  .comment-form {
+    width: 80%;
+    align-self: center;
+  }
+
+  .comment-form textarea {
+    font-size: 0.95rem;
+    min-height: 6rem;
+  }
+
+  .comment-form button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 420px) and (min-width: 352px) {
+  .event-container {
+    gap: 1rem;
+    margin-top: 0.8rem;
+  }
+
+  .event-card,
+  .comments-section {
+    width: 92%;
+    padding: 1.2rem 1.4rem;
+  }
+
+  .event-title {
+    font-size: 1.5rem;
+  }
+
+  .event-date,
+  .event-location {
+    font-size: 1.05rem;
+  }
+
+  .event-description {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .comments-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .comment-item {
+    padding: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .comment-user {
+    font-size: 0.9rem;
+  }
+
+  .comment-date {
+    font-size: 0.7rem;
+  }
+
+  .comment-text {
+    font-size: 1rem;
+  }
+
+  .comment-form {
+    width: 90%;
+  }
+
+  .comment-form textarea {
+    font-size: 0.9rem;
+    min-height: 3.8rem;
+  }
+
+  .comment-form button {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.9rem;
+  }
 }
