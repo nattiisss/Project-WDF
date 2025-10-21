@@ -4,18 +4,23 @@
 {{#if error}}
   <p class="error">{{error}}</p>
 {{/if}}
-
+<div class="nav">
 <h2>Post from all Events</h2>
+<a href="/images/new" class="upload-btn">Upload New Image</a>
+</div>
+
 {{#if session.isLoggedIn}}
   <div class="images-container">
-    <a href="/images/new" class="upload-btn">Upload New Image</a>
+    
 
     {{#each pics}}
       <div class="post">
-        <p><b>{{username}}</b></p>
+        <section class="upper">
+        <p><b>@{{username}}</b></p>
+        <p><span>{{created_at}}</span></p>
+        </section>
         <img src="/img/{{filename}}" alt="image">
-        <p>{{description}}</p>
-        <p>{{created_at}}</p>
+        <p class="desc">{{description}}</p>
 
         {{#if ../session.isAdmin}}
           <form action="/images/delete/{{id}}" method="post">
