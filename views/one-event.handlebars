@@ -1,28 +1,67 @@
 <link rel="stylesheet" href="/css/eventpage.css" />
 
+<a href="/events" class="go-back">← Go Back</a>
+
 <div class="event-container">
   {{#if e}}
-    <h1>{{e.title}}</h1>
-    <p><strong>Date:</strong> {{e.date}}</p>
-    <p><strong>Location:</strong> {{e.location}}</p>
-    <p>{{e.description}}</p>
+    <div class="event-card">
+      <div class="event-header">
+        <h1 class="event-title">{{e.title}}</h1>
+        <p class="event-date"><strong>Date:</strong> {{e.date}}</p>
+        <p class="event-location"><strong>Location:</strong> {{e.location}}</p>
+      </div>
 
-    <hr />
+      <div class="event-description">
+        <p>{{e.description}}</p>
+      </div>
+    </div>
 
-    <h3>Comments</h3>
+    <div class="comments-section">
+      <h3>Comments</h3>
 
-    {{#if comments.length}}
-      <ul class="comments-list">
-        {{#each comments}}
-          <li>
-            <p><strong>{{username}}</strong> said:</p>
-            <p>{{content}}</p>
-            <small>{{created_at}}</small>
-          </li>
-        {{/each}}
-      </ul>
-    {{else}}
-      <p>No comments yet. Be the first to comment!</p>
+      {{#if comments.length}}
+        <ul class="comments-list">
+          {{#each comments}}
+            <li class="comment-item">
+              <div class="comment-header">
+                <span class="comment-user">{{username}}</span>
+                <small class="comment-date">{{created_at}}</small>
+              </div>
+
+              <p class="comment-text">{{content}}</p>
+
+              {{#if ../session.isAdmin}}
+                <form
+                  action="/events/{{../e.id}}/comments/{{id}}/delete"
+                  method="POST"
+                  class="delete-comment-form"
+                  onsubmit="return confirm('Are you sure you want to delete this comment?');"
+                >
+                  <button type="submit" class="delete-comment">Delete</button>
+                </form>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <p class="no-comments">No comments yet. Be the first to comment!</p>
+      {{/if}}
+    </div>
+
+    {{!-- ✅ Add create comment form (for logged-in users) --}}
+    {{#if session.isLoggedIn}}
+      <form
+        action="/events/{{e.id}}/comments"
+        method="POST"
+        class="comment-form"
+      >
+        <textarea
+          name="content"
+          placeholder="Write your comment..."
+          required
+        ></textarea>
+        <button type="submit">Post Comment</button>
+      </form>
     {{/if}}
   {{else}}
     {{#if error}}
@@ -30,3 +69,31 @@
     {{/if}}
   {{/if}}
 </div>
+<footer>
+  <div class="footer-part-1">
+    <div class="part1">
+      <!--<img src="/img/white.png" alt="eventigo" />-->
+      <h1>Eventigo</h1>
+      <h3>All newest events in one place</h3>
+
+    </div>
+    <div class="part2">
+      <h2>Socials</h2>
+      <section class="imgs">
+        <img src="/img/instagram.png" alt="instagram" />
+        <img src="/img/tik-tok.png" alt="tiktok" />
+        <img src="/img/twitter.png" alt="twitter" />
+        <img src="/img/facebook.png" alt="facebook" />
+      </section>
+    </div>
+    <section class="form">
+      <h2>Get the latest news!</h2>
+      <input type="email" placeholder="e-mail address" />
+      <input class="send" type="submit" value="Send" />
+    </section>
+
+  </div>
+  <div class="line"></div>
+  <p>Terms & Conditions | Privacy Policy | Disclosures </p>
+  <p>©2025 Eventigo All Rights Reserved</p>
+</footer>

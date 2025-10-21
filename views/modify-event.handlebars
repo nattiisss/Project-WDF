@@ -1,49 +1,83 @@
-<link rel="stylesheet" href="/css/eventpage.css" />
-<div id="main">
-    {{#if e.id}}
-        <h1>Modify event</h1>
-    {{else}}
-        <h1>New event</h1>
-    {{/if}}
+<link rel="stylesheet" href="/css/modify-event.css" />
 
-    <div>
-        {{#if e.id}}
-            <form action="/events/modify/{{e.id}}" method="post" id="eventform">
-        {{else}}
-            <form action="/events/new" method="post" id="eventform">
-        {{/if}}
+<div class="page-container">
+  <a href="/events" class="go-back">← Go Back</a>
 
-            <fieldset>
-                <legend>Event</legend>
+  <div class="form-card">
+    <h1 class="form-title">
+      {{#if e.id}}Modify Event{{else}}Create New Event{{/if}}
+    </h1>
 
-                <label for="title">Title:</label>
-                <input type="text" name="title" id="name" {{#if e.title}} value="{{e.title}}" {{/if}} />
-                <br>
+    <form
+      action="{{#if e.id}}/events/modify/{{e.id}}{{else}}/events/new{{/if}}"
+      method="post"
+      class="event-form"
+    >
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" value="{{e.title}}" required />
+        </div>
 
-                <label for="desc">Description:</label>
-                <textarea name="desc" id="desc" rows="4" cols="40">
-                    {{#if e.description}}{{e.description}}{{/if}}
-                </textarea>
-                <br>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" name="location" id="location" value="{{e.location}}" required />
+        </div>
 
-                <label for="location">Location:</label>
-                <input type="text" name="location" id="location" {{#if e.location}} value="{{e.location}}" {{/if}} />
-                <br>
+        <div class="form-group form-wide">
+          <label for="desc">Description</label>
+          <textarea name="desc" id="desc" rows="4" required>{{e.description}}</textarea>
+        </div>
 
-                <label for="date">Date:</label>
-                <input type="text" name="date" id="date" {{#if e.date}} value="{{e.date}}" {{/if}} />
-                <br>
+        <div class="form-group">
+          <label for="date">Date & Time</label>
+          <input
+            type="datetime-local"
+            name="date"
+            id="date"
+            value="{{e.date}}"
+            required
+          />
+        </div>
+      </div>
 
-                {{#if e.id}}
-                    <input type="submit" value="Modify" />
-                {{else}}
-                    <input type="submit" value="Create" />
-                {{/if}}
-            </fieldset>
-        </form>
-    </div>
+      <button type="submit" class="submit-btn">
+        {{#if e.id}}Update Event{{else}}Create Event{{/if}}
+      </button>
+    </form>
 
     {{#if error}}
-        <p class="error">{{error}}</p>
+      <p class="error">{{error}}</p>
     {{/if}}
+  </div>
 </div>
+
+
+<footer>
+  <div class="footer-part-1">
+    <div class="part1">
+      <!--<img src="/img/white.png" alt="eventigo" />-->
+      <h1>Eventigo</h1>
+      <h3>All newest events in one place</h3>
+
+    </div>
+    <div class="part2">
+      <h2>Socials</h2>
+      <section class="imgs">
+        <img src="/img/instagram.png" alt="instagram" />
+        <img src="/img/tik-tok.png" alt="tiktok" />
+        <img src="/img/twitter.png" alt="twitter" />
+        <img src="/img/facebook.png" alt="facebook" />
+      </section>
+    </div>
+    <section class="form">
+      <h2>Get the latest news!</h2>
+      <input type="email" placeholder="e-mail address" />
+      <input class="send" type="submit" value="Send" />
+    </section>
+
+  </div>
+  <div class="line"></div>
+  <p>Terms & Conditions | Privacy Policy | Disclosures </p>
+  <p>©2025 Eventigo All Rights Reserved</p>
+</footer>
