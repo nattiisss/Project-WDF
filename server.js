@@ -302,22 +302,22 @@ app.post("/events/modify/:eventsid", (req, res) => {
 
   if (!title || !desc || !location || !date) {
     return res.render("modify-event", {
-      e: { id: myid, title, description: desc, location, date },
+      e: { id: myid, title, description: desc, location, date, images },
       error: "Please fill in all fields.",
     });
   }
 
   const sql = `
     UPDATE events
-    SET title = ?, description = ?, location = ?, date = ?
+    SET title = ?, description = ?, location = ?, date = ? images = ?
     WHERE id = ?
   `;
 
-  db.run(sql, [title, desc, location, date, myid], function (err) {
+  db.run(sql, [title, desc, location, date, images, myid], function (err) {
     if (err) {
       console.error("Database error:", err.message);
       return res.render("modify-event", {
-        e: { id: myid, title, description: desc, location, date },
+        e: { id: myid, title, description: desc, location, date, images },
         error: "Error updating event.",
       });
     }
@@ -630,10 +630,10 @@ app.get("/images/modify/:id", (req, res) => {
   });
 });
 
-app.post("/images/modify/:id", upload.single("image"), (req, res) => {
-  const id = req.params.id;
-  const { description } = req.body;
-  let filename = req.body.filename; // for text filename input
+app.post("/images/modify/:imageid", upload.single("image"), (req, res) => {
+  const imageid = req.params.imageid;
+  const { filename, description } = req.body;
+  const newFilename = req.file ? req.file.filename : filename;
 
   if (!req.session.isAdmin) {
     return res.render("loggedin", {
@@ -641,35 +641,30 @@ app.post("/images/modify/:id", upload.single("image"), (req, res) => {
     });
   }
 
-  // If user uploaded a new file, use its filename
-  if (req.file) {
-    filename = req.file.filename;
-  }
-
-  if (!filename || !description) {
+  if (!title || !desc) {
     return res.render("modify-image", {
-      img: { id, filename, description },
+      image: { id: imageid, title, description: desc, filename: newFilename },
       error: "Please fill in all fields.",
     });
   }
 
   const sql = `
-    UPDATE Images
-    SET filename = ?, description = ?
-    WHERE id = ?
-  `;
+  UPDATE Images
+  SET filename = ?, description = ?
+  WHERE id = ?
+`;
 
-  db.run(sql, [filename, description, id], function (err) {
+  db.run(sql, [newFilename, description, imageid], function (err) {
     if (err) {
       console.error("Database error:", err.message);
       return res.render("modify-image", {
-        img: { id, filename, description },
+        img: { id: imageid, filename: newFilename, description },
         error: "Error updating image.",
       });
     }
 
-    console.log(`Image ${id} updated successfully.`);
-    res.redirect("/images");
+    console.log(`Image ${imageid} updated successfully.`);
+    return res.redirect("/images");
   });
 });
 
