@@ -1,17 +1,59 @@
 <link rel="stylesheet" href="/css/create-post.css" />
-<a href="/images" class="go-back">&larr; Go Back</a>
-<h2>Upload New Post</h2>
+<script src="/js/images.js" defer></script>
+<a href="/images" class="go-back">&larr; Go back to Posts</a>
+<div class="background"></div>
 
+<section class="uploadform">
+  <h2>Upload New Post</h2>
+
+  <form action="/images/new" method="POST" enctype="multipart/form-data">
+
+    <label for="image">Choose an image (JPG or PNG):</label>
+    <div class="image-space">
+      <label for="image" class="custom-file-label">Select Image</label>
+      <input
+        id="image"
+        type="file"
+        name="image"
+        accept=".jpg,.jpeg,.png"
+        required
+      />
+      <div id="preview" class="image-preview"></div>
+    </div>
+
+    <label for="description">Description:</label>
+    <input type="text" name="description" required />
+
+    <button type="submit">Upload</button>
+  </form>
+</section>
+<footer>
+  <div class="footer-part-1">
+    <div class="part1">
+      <h1>Eventigo</h1>
+      <h3>All newest events in one place</h3>
+
+    </div>
+    <div class="part2">
+      <h2>Socials</h2>
+      <section class="imgs">
+        <img src="/img/instagram.png" alt="instagram" />
+        <img src="/img/tik-tok.png" alt="tiktok" />
+        <img src="/img/twitter.png" alt="twitter" />
+        <img src="/img/facebook.png" alt="facebook" />
+      </section>
+    </div>
+    <section class="form">
+      <h2>Get the latest news!</h2>
+      <input type="email" placeholder="e-mail address" />
+      <input class="footersend" type="submit" value="Send" />
+    </section>
+
+  </div>
+  <div class="line"></div>
+  <p>Terms & Conditions | Privacy Policy | Disclosures </p>
+  <p>©2025 Eventigo All Rights Reserved</p>
+</footer>
 {{#if error}}
   <p class="error">{{error}}</p>
 {{/if}}
-
-<form action="/images/new" method="POST" enctype="multipart/form-data">
-  <label for="image">Choose an image (JPG or PNG):</label>
-  <input type="file" name="image" accept=".jpg,.jpeg,.png" required />
-
-  <label for="description">Description:</label>
-  <input type="text" name="description" required />
-
-  <button type="submit">Upload</button>
-</form>
