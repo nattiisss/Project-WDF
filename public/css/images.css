@@ -145,6 +145,8 @@ h2 {
   color: rgba(255, 255, 255, 0.3);
 }
 
+/* Footer */
+
 footer {
   position: flex;
   bottom: 0;
@@ -168,9 +170,15 @@ footer .part1 {
   justify-items: center;
   margin-bottom: 0;
 }
+
 footer .part2 {
   width: 10%;
   justify-items: center;
+}
+footer .part2 h2 {
+  text-align: center;
+  margin: 0 0 1em;
+  padding: 0;
 }
 footer .imgs {
   width: 100%;
@@ -183,7 +191,7 @@ footer .part2 img {
   width: 20%;
   padding-right: 20%;
 }
-.line {
+footer .line {
   background-color: #ff676a;
   height: 0.1vw;
   width: 80%;
@@ -192,7 +200,8 @@ footer .part2 img {
 footer p {
   justify-self: center;
 }
-.form input {
+
+footer .form input {
   background-color: #000000;
   border: 0.1vw solid white;
   width: 78%;
@@ -200,13 +209,108 @@ footer p {
   border-radius: 2vw;
   color: white;
 }
-.form input::placeholder {
+footer .form input::placeholder {
   color: white;
   padding-left: 0.3vw;
 }
-.form .send {
+footer .form .send {
   background-color: #ff676a;
   width: 20%;
   color: white;
   border-color: #ff676a;
+}
+
+/* TABLET VERSION */
+@media (max-width: 651px) {
+  .upload-btn,
+  .delete-btn,
+  .edit-btn {
+    padding: 4px 7.5px;
+  }
+  .upload-btn {
+    margin-top: 1em;
+  }
+  /* Images */
+  .images-container {
+    gap: 2rem;
+  }
+  .post {
+    width: 95%;
+    padding: 0.5rem 1rem 0.5rem;
+    border-radius: 0.4em;
+    text-align: left;
+  }
+  .post p {
+    font-size: 0.7rem;
+  }
+
+  /*Footer*/
+  footer {
+    padding-bottom: 2vw;
+    padding-top: 5vw;
+    margin-top: 20vw;
+    border-top: solid 0.5vw #ff676a;
+  }
+
+  footer .footer-part-1 {
+    flex-direction: column;
+    justify-content: none;
+    align-items: center;
+    padding-bottom: 2vw;
+    margin-top: 0;
+  }
+  footer .imgs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto 5vw;
+  }
+  footer .part2 img {
+    width: 50%;
+    padding-right: 20%;
+  }
+}
+
+/* PHONE VERSION */
+@media (max-width: 420px) {
+  .images-container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+    padding: 1em;
+  }
+  .nav {
+    flex-direction: column;
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav a {
+    margin: 0.5em 0 1em;
+  }
+  .nav h2 {
+    padding: 0;
+  }
+  .upload-btn,
+  .delete-btn,
+  .edit-btn {
+    padding: 6px 8px;
+    font-size: 1.1em;
+  }
+  /* Images */
+  .images-container {
+    gap: 2rem;
+  }
+  .post {
+    width: 95%;
+    padding: 0.5rem 1rem 0.5rem;
+    border-radius: 0.4em;
+    text-align: left;
+  }
+  .post p {
+    font-size: 1.1rem;
+  }
 }
