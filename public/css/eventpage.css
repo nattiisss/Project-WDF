@@ -7,8 +7,13 @@ body {
   background-size: cover;
 }
 .go-back {
-  list-style: none;
+  margin-left: 1.2rem;
+  text-decoration: none;
   color: white;
+}
+
+.go-back:hover {
+  text-decoration: underline;
 }
 
 .event-container {
@@ -143,4 +148,67 @@ body {
   border-radius: 10px;
   width: fit-content;
   margin: 1rem auto;
+}
+
+/* footer */
+
+footer {
+  background-color: #000000;
+  width: 100%;
+  padding-bottom: 2vw;
+  padding-top: 5vw;
+}
+footer .footer-part-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: end;
+  padding-bottom: 2vw;
+  margin-top: 0;
+}
+footer .part1 {
+  justify-items: center;
+  margin-bottom: 0;
+}
+footer .part2 {
+  width: 10%;
+  justify-items: center;
+}
+footer .imgs {
+  width: 100%;
+  padding-top: 1vw;
+  padding-right: 2vw;
+  display: flex;
+  flex-direction: row;
+}
+footer .part2 img {
+  width: 20%;
+  padding-right: 20%;
+}
+.line {
+  background-color: #ff676a;
+  height: 0.1vw;
+  width: 80%;
+  justify-self: center;
+}
+footer p {
+  justify-self: center;
+}
+.form input {
+  background-color: #000000;
+  border: 0.1vw solid white;
+  width: 78%;
+  padding: 2%;
+  border-radius: 2vw;
+  color: white;
+}
+.form input::placeholder {
+  color: white;
+  padding-left: 0.3vw;
+}
+.form .send {
+  background-color: #ff676a;
+  width: 20%;
+  color: white;
+  border-color: #ff676a;
 }

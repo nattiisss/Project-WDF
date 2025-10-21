@@ -443,9 +443,10 @@ app.engine(
         return new Date(date).getFullYear();
       },
       formatTime: function (date) {
-        return new Date(date).toLocaleTimeString([], {
+        return new Date(date).toLocaleTimeString("en-GB", {
           hour: "2-digit",
           minute: "2-digit",
+          hour12: false,
         });
       },
     },

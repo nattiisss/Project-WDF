@@ -1,28 +1,68 @@
-<link rel="stylesheet" href="/css/eventpage.css" />
-<p><a href="/events">← Back to Events</a></p>
-<div id="main">
-  <h1>New Events</h1>
-  <div>
+<link rel="stylesheet" href="/css/create-event.css" />
+
+<a href="/events" class="go-back">← Back to Events</a>
+
+<div class="form-wrapper">
+  <div class="form-container">
+    <h1 class="form-title">New Event</h1>
+
     {{#if session.isAdmin}}
       <form action="/events/new" method="post" id="eventsform">
-        <fieldset>
-          <legend>Event</legend>
+        <div class="form-group">
           <label for="title">Title:</label>
-          <input type="text" name="title" id="title" />
-          <br />
+          <input type="text" name="title" id="title" required />
+        </div>
+
+        <div class="form-group">
           <label for="desc">Description:</label>
-          <textarea name="desc" id="desc" rows="4" cols="40"></textarea>
-          <br />
+          <textarea name="desc" id="desc" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
           <label for="location">Location:</label>
-          <input type="text" name="location" id="location" />
-          <br />
-          <label for="date">Date:</label>
-          <input type="text" name="date" id="date" />
-          <br />
-          <input type="submit" value="Create" />
-        </fieldset>
+          <input type="text" name="location" id="location" required />
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date and Time:</label>
+          <input type="datetime-local" name="date" id="date" required />
+        </div>
+
+        <button type="submit" class="submit-btn">Create</button>
       </form>
     {{/if}}
-    {{#if error}} <p class="error">{{error}}</p>{{/if}}
+
+    {{#if error}}
+      <p class="error">{{error}}</p>
+    {{/if}}
   </div>
 </div>
+
+<footer>
+  <div class="footer-part-1">
+    <div class="part1">
+      <!--<img src="/img/white.png" alt="eventigo" />-->
+      <h1>Eventigo</h1>
+      <h3>All newest events in one place</h3>
+
+    </div>
+    <div class="part2">
+      <h2>Socials</h2>
+      <section class="imgs">
+        <img src="/img/instagram.png" alt="instagram" />
+        <img src="/img/tik-tok.png" alt="tiktok" />
+        <img src="/img/twitter.png" alt="twitter" />
+        <img src="/img/facebook.png" alt="facebook" />
+      </section>
+    </div>
+    <section class="form">
+      <h2>Get the latest news!</h2>
+      <input type="email" placeholder="e-mail address" />
+      <input class="send" type="submit" value="Send" />
+    </section>
+
+  </div>
+  <div class="line"></div>
+  <p>Terms & Conditions | Privacy Policy | Disclosures </p>
+  <p>©2025 Eventigo All Rights Reserved</p>
+</footer>
