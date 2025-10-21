@@ -23,14 +23,14 @@
 }
 
 .login-wrapper h2 {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .login-wrapper p {
-  font-size: 16px;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .login-wrapper p a {
@@ -45,24 +45,24 @@
 .login-wrapper input {
   display: block;
   width: 100%;
-  padding: 14px;
-  margin: 12px 0;
+  padding: 0.875rem;
+  margin: 0.75rem 0;
   border: none;
-  border-radius: 25px;
+  border-radius: 1.5625rem;
   background: #2c2c3d;
   color: white;
-  font-size: 16px;
+  font-size: 1rem;
   opacity: 0.7;
 }
 
 .btn-login {
   width: 100%;
-  padding: 14px;
+  padding: 0.875rem;
   background: #70aaff;
   border: none;
-  border-radius: 25px;
+  border-radius: 1.5625rem;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   transition: background 0.3s;
 }
@@ -74,11 +74,11 @@
 /* Error styling login */
 .error {
   color: #ff6961;
-  font-size: 14px;
-  margin-bottom: 10px;
+  font-size: 0.875rem;
+  margin-bottom: 0.625rem;
 }
 
-/* Sign in page*/
+/* Sign in page */
 .signin-page-wrapper {
   position: fixed;
   top: 0;
@@ -90,7 +90,6 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,18 +99,18 @@
 .signin-wrapper {
   margin: auto;
   text-align: left;
-  max-width: 400px;
+  max-width: 25rem;
 }
 
 .signin-wrapper h2 {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .signin-wrapper p {
-  font-size: 16px;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .signin-wrapper p a {
@@ -126,28 +125,99 @@
 .signin-wrapper input {
   display: block;
   width: 100%;
-  padding: 14px;
-  margin: 12px 0;
+  padding: 0.875rem;
+  margin: 0.75rem 0;
   border: none;
-  border-radius: 25px;
+  border-radius: 1.5625rem;
   background: #2c2c3d;
   color: white;
-  font-size: 16px;
+  font-size: 1rem;
   opacity: 0.8;
 }
 
 .btn-signin {
   width: 100%;
-  padding: 14px;
+  padding: 0.875rem;
   background: #ff6961;
   border: none;
-  border-radius: 25px;
+  border-radius: 1.5625rem;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   transition: background 0.3s;
 }
 
 .btn-signin:hover {
   background: #ffffff;
+}
+
+/* responsive mode */
+
+@media (max-width: 651px) {
+  .login-wrapper,
+  .signin-wrapper {
+    max-width: 90%;
+    padding: 1.25rem;
+  }
+
+  .login-wrapper h2,
+  .signin-wrapper h2 {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+
+  .login-wrapper p,
+  .signin-wrapper p {
+    font-size: 0.9375rem;
+    text-align: center;
+  }
+
+  .login-wrapper input,
+  .signin-wrapper input {
+    padding: 0.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .btn-login,
+  .btn-signin {
+    padding: 0.75rem;
+    font-size: 0.9375rem;
+  }
+}
+
+/* For mobile phones */
+@media (max-width: 420px) {
+  .login-wrapper,
+  .signin-wrapper {
+    max-width: 80%;
+    padding: 1rem;
+  }
+
+  .login-wrapper h2,
+  .signin-wrapper h2 {
+    font-size: 1.5rem;
+  }
+
+  .login-wrapper p,
+  .signin-wrapper p {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .login-wrapper input,
+  .signin-wrapper input {
+    padding: 0.625rem;
+    font-size: 0.875rem;
+  }
+
+  .btn-login,
+  .btn-signin {
+    padding: 0.625rem;
+    font-size: 0.875rem;
+  }
+
+  .login-page-wrapper,
+  .signin-page-wrapper {
+    background-position: top center;
+  }
 }
