@@ -81,7 +81,7 @@ textarea:focus {
   border: none;
   color: white;
   padding: 0.8rem 1.5rem;
-  border-radius: 0.8rem;
+  border-radius: 30px;
   font-size: 1.1rem;
   cursor: pointer;
   align-self: center;
@@ -89,7 +89,7 @@ textarea:focus {
 }
 
 .submit-btn:hover {
-  background-color: #d62828;
+  background-color: #9e9d9d;
 }
 
 .error {
@@ -162,4 +162,101 @@ footer p {
   width: 20%;
   color: white;
   border-color: #ff676a;
+}
+
+/* responsive */
+
+@media (max-width: 621px) {
+  .page-container {
+    width: 95%;
+  }
+
+  .form-card {
+    padding: 1.5rem 2rem;
+    margin-top: 1.5rem;
+    border-radius: 0.8rem;
+  }
+
+  .form-title {
+    font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  label {
+    font-size: 0.95rem;
+  }
+
+  input,
+  textarea {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .submit-btn {
+    font-size: 1rem;
+    padding: 0.7rem 1.3rem;
+  }
+
+  .error {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  .go-back {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 420px) and (min-width: 352px) {
+  .page-container {
+    width: 92%;
+  }
+
+  .form-card {
+    padding: 1.2rem 1.3rem;
+    margin-top: 1rem;
+    border-radius: 0.6rem;
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  input,
+  textarea {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .submit-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .error {
+    font-size: 0.85rem;
+    padding: 0.7rem;
+  }
+
+  .go-back {
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
 }

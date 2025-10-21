@@ -23,8 +23,9 @@ h2 {
 .event-links li a {
   color: white;
   text-decoration: none;
-  font-size: 15px;
-  transition: color 0.3s;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: all 0.3s;
 }
 
 .event-links li a:hover {
@@ -83,6 +84,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .event-title {
@@ -109,7 +111,6 @@ h2 {
   font-weight: 500;
   width: fit-content;
   transition: all 0.3s ease;
-  justify-items: center;
 }
 
 .read-more:hover {
@@ -283,4 +284,234 @@ footer p {
   width: 20%;
   color: white;
   border-color: #ff676a;
+}
+
+/* responsive mode */
+
+@media (max-width: 1397px) {
+  .event-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+    background-color: rgba(97, 95, 95, 0.4);
+    border-radius: 30px;
+    padding: 1rem 2rem;
+    width: 90%;
+  }
+
+  .event-links li a {
+    font-size: 1.1rem;
+    padding: 0.5rem 1.3rem;
+  }
+
+  h2 {
+    text-align: center;
+    width: 90%;
+    margin: 2rem auto 1.5rem;
+    padding-left: 0;
+  }
+
+  .events-container {
+    gap: 2.5rem;
+    margin-top: 4rem;
+  }
+
+  .event-wrapper {
+    width: 85%;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1153px) {
+  .event-wrapper {
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .event-info {
+    width: 90%;
+    height: auto;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 931px) {
+  .event-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .event-info {
+    flex: 1 1 55%;
+    display: flex;
+    flex-direction: row;
+    height: 16rem;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .event-image img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .event-content {
+    flex: 1;
+    padding: 1rem;
+    text-align: left;
+    justify-content: center;
+  }
+
+  .event-title {
+    font-size: 1.25rem;
+  }
+
+  .event-location-time {
+    font-size: 0.9rem;
+  }
+
+  .event-date {
+    flex: 0 0 auto;
+    width: 6.5rem;
+    height: 8rem;
+  }
+
+  .event-date .day {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 651px) and (min-width: 421px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    text-align: center;
+    padding: 0 0 1rem 0;
+    border-bottom: 0.1rem solid rgba(255, 255, 255, 0.1);
+    width: 90%;
+    margin: 0 auto 2rem;
+  }
+
+  .event-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    background-color: rgba(97, 95, 95, 0.3);
+    border-radius: 2rem;
+    padding: 1rem 1rem;
+    width: 95%;
+    margin: 0 auto 2rem;
+  }
+
+  .event-links li a {
+    font-size: 1.1rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 2rem;
+    min-width: 6rem;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .event-wrapper {
+    width: 90%;
+  }
+
+  .event-wrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .event-info {
+    flex: 1 1 60%;
+    height: 14rem;
+  }
+
+  .event-image img {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .event-content {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .event-date {
+    width: 6rem;
+    height: 7.5rem;
+  }
+
+  .event-date .day {
+    font-size: 2.2rem;
+  }
+}
+@media (max-width: 420px) and (min-width: 352px) {
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .event-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    background: none;
+    box-shadow: none;
+    background-color: rgba(97, 95, 95, 0.3);
+    border-radius: 2rem;
+    padding: 1rem 1.5rem;
+    width: 90%;
+    margin: 0 auto 2rem;
+  }
+
+  .event-links li a {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .event-wrapper {
+    width: 95%;
+    gap: 1rem;
+  }
+
+  .event-content {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+  .event-image img {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .event-title {
+    font-size: 1.2rem;
+  }
+
+  .event-location-time {
+    font-size: 0.85rem;
+  }
+
+  .event-date {
+    width: 5.5rem;
+    height: 7rem;
+  }
+
+  .event-date .day {
+    font-size: 2rem;
+  }
+
+  .event-date .month,
+  .event-date .year {
+    font-size: 0.8rem;
+  }
 }
