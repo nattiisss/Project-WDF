@@ -201,6 +201,35 @@ footer p {
     padding: 0.7rem 1.3rem;
     border-radius: 25px;
   }
+  /*Footer*/
+  footer {
+    padding-bottom: 2vw;
+    padding-top: 5vw;
+    margin-top: 20vw;
+    border-top: solid 0.5vw #ff676a;
+  }
+
+  footer .footer-part-1 {
+    flex-direction: column;
+    justify-content: none;
+    align-items: center;
+    padding-bottom: 2vw;
+    margin-top: 0;
+  }
+  footer .imgs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto 5vw;
+  }
+  footer .part2 img {
+    width: 50%;
+    padding-right: 20%;
+  }
 }
 
 @media (max-width: 420px) and (min-width: 352px) {
