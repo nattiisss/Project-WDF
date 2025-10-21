@@ -91,6 +91,8 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: solid 0.1em rgba(0, 0, 0, 0.2);
+  margin: 0 3em 0 3em;
 }
 .nav a {
   justify-items: right;
@@ -101,9 +103,9 @@ h2 {
 .images-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  gap: 3rem;
   justify-content: center;
-  padding: 2rem 4rem 2rem;
+  padding: 2rem 6rem 2rem;
   justify-items: center;
 }
 .post {
@@ -127,8 +129,8 @@ h2 {
   padding: 0 0.5em 0 0.5em;
 }
 .post .desc {
-  border: solid 0.1em rgba(251, 102, 105, 0.3);
-  border-radius: 0.5em;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.3em;
   padding: 0.5em 0 1.7em 0.8em;
 }
 
