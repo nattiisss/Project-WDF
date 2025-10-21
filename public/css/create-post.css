@@ -1,3 +1,64 @@
 body {
   background-color: black;
+  margin: 0;
+  padding: 0;
+}
+.go-back {
+  color: white;
+  text-decoration: none;
+  padding-left: 3.5em;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.go-back:hover {
+  text-decoration: underline;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  width: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 1em;
+  padding: 2em;
+  margin-top: 2em;
+}
+.form h2 {
+  align-self: center;
+  margin: 1em 0 2em;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+form label {
+  font-size: 1.2em;
+}
+.image-space {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 0.1em #ff676a;
+  width: 30%;
+  padding: 5em 1em 5em 1em;
+  border-radius: 2em;
+  margin: 1em 0 1em;
+}
+.image-space input[type="file"] {
+  display: none;
+}
+.custom-file-label {
+  display: inline-block;
+  background-color: white;
+  color: #ff676a;
+  padding: 1em 2em;
+  border-radius: 2em;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-label:hover {
+  background-color: #ffd2cf;
 }

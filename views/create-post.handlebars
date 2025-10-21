@@ -1,17 +1,28 @@
 <link rel="stylesheet" href="/css/create-post.css" />
-<a href="/images" class="go-back">&larr; Go Back</a>
-<h2>Upload New Post</h2>
+<a href="/images" class="go-back">&larr; Go back to Posts</a>
 
+<section class="form">
+  <h2>Upload New Post</h2>
+
+  <form action="/images/new" method="POST" enctype="multipart/form-data">
+    <label for="image">Choose an image (JPG or PNG):</label>
+    <div class="image-space">
+      <label for="image" class="custom-file-label">Select Image</label>
+      <input
+        id="image"
+        type="file"
+        name="image"
+        accept=".jpg,.jpeg,.png"
+        required
+      />
+    </div>
+
+    <label for="description">Description:</label>
+    <input type="text" name="description" required />
+
+    <button type="submit">Upload</button>
+  </form>
+</section>
 {{#if error}}
   <p class="error">{{error}}</p>
 {{/if}}
-
-<form action="/images/new" method="POST" enctype="multipart/form-data">
-  <label for="image">Choose an image (JPG or PNG):</label>
-  <input type="file" name="image" accept=".jpg,.jpeg,.png" required />
-
-  <label for="description">Description:</label>
-  <input type="text" name="description" required />
-
-  <button type="submit">Upload</button>
-</form>
