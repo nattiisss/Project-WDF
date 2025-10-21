@@ -1,44 +1,80 @@
 <link rel="stylesheet" href="/css/modify-post.css" />
+<script src="/js/images.js" defer></script>
+
 <a href="/images" class="go-back">&larr; Go back to Posts</a>
 
 <div class="uploadform">
-    <h1>Modify Image</h1>
-  
-    {{#if img.id}}
-      <form action="/images/modify/{{img.id}}" method="post" enctype="multipart/form-data" id="imagesform">
-    {{else}}
-      <form action="/images/new" method="post" enctype="multipart/form-data" id="imagesform">
-    {{/if}}
+  <h1>Modify Image</h1>
+  <form
+    action="/images/modify/{{img.id}}"
+    method="post"
+    enctype="multipart/form-data"
+    id="imagesform"
+  >
 
-      <fieldset>
-        <legend>Image Details</legend>
+    <section class="mainform">
+      <label for="filename">Change Filename (optional):</label>
+      <input
+        type="text"
+        name="filename"
+        id="filename"
+        placeholder="example.jpg"
+        value="{{img.filename}}"
+      />
 
-        <label for="description">Description:</label>
-        <textarea
-          name="description"
-          id="description"
-          rows="4"
-          cols="40"
-          placeholder="Enter image description"
-        >{{img.description}}</textarea>
-
-        <label for="filename">Change Filename (optional):</label>
+      <label for="image">Or upload new file:</label>
+      <div class="image-space">
+        <label for="image" class="custom-file-label">Select Image</label>
         <input
-          type="text"
-          name="filename"
-          id="filename"
-          placeholder="example.jpg"
-          value="{{img.filename}}"
+          id="image"
+          type="file"
+          name="image"
+          accept=".jpg,.jpeg,.png"
+          required
         />
+        <div id="preview" class="image-preview"></div>
+      </div>
 
-        <label for="image">Or upload new file:</label>
-        <input type="file" name="image" id="image" accept="image/*" />
+      <label for="description">Description:</label>
+      <textarea
+        name="description"
+        id="description"
+        rows="4"
+        cols="40"
+      >{{img.description}}</textarea>
 
-        <input type="submit" value="{{#if img.id}}Modify{{else}}Create{{/if}}" />
-      </fieldset>
-    </form>
+      <button type="submit">Modify</button>
+    </section>
+  </form>
+</div>
+<footer>
+  <div class="footer-part-1">
+    <div class="part1">
+      <h1>Eventigo</h1>
+      <h3>All newest events in one place</h3>
+
+    </div>
+    <div class="part2">
+      <h2>Socials</h2>
+      <section class="imgs">
+        <img src="/img/instagram.png" alt="instagram" />
+        <img src="/img/tik-tok.png" alt="tiktok" />
+        <img src="/img/twitter.png" alt="twitter" />
+        <img src="/img/facebook.png" alt="facebook" />
+      </section>
+    </div>
+    <section class="form">
+      <h2>Get the latest news!</h2>
+      <input type="email" placeholder="e-mail address" />
+      <input class="footersend" type="submit" value="Send" />
+    </section>
+
   </div>
+  <div class="line"></div>
+  <p>Terms & Conditions | Privacy Policy | Disclosures </p>
+  <p>©2025 Eventigo All Rights Reserved</p>
+</footer>
 
-  {{#if error}}
-    <p class="error">{{error}}</p>
-  {{/if}}
+{{#if error}}
+  <p class="error">{{error}}</p>
+{{/if}}

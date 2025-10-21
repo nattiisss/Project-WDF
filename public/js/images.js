@@ -36,3 +36,39 @@ imageInput.addEventListener("change", () => {
   };
   reader.readAsDataURL(file);
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const fileInput = document.getElementById("image");
+  const filenameInput = document.getElementById("filename");
+  const previewContainer = document.getElementById("preview");
+
+  // Save the original filename (from the DB)
+  const originalFilename = filenameInput.value;
+
+  fileInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      filenameInput.value = file.name;
+
+      // Optional: show image preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewContainer.innerHTML = `
+          <img src="${e.target.result}" alt="Preview">
+          <button type="button" class="remove-btn">Remove</button>
+        `;
+        document.querySelector(".custom-file-label").classList.add("hidden");
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Reset to original when remove button clicked
+  previewContainer.addEventListener("click", (event) => {
+    if (event.target.classList.contains("remove-btn")) {
+      previewContainer.innerHTML = "";
+      fileInput.value = ""; // clears file input
+      filenameInput.value = originalFilename; // reset to the original filename
+      document.querySelector(".custom-file-label").classList.remove("hidden");
+    }
+  });
+});

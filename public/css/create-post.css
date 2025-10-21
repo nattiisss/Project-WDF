@@ -95,6 +95,10 @@ form input {
   font-size: 1.6em;
   padding: 0.5em 0 0.5em;
   color: white;
+  transition: background-color 0.3s ease;
+}
+.uploadform button:hover {
+  background-color: #ffd2cf;
 }
 .image-preview {
   margin-top: 1rem;
