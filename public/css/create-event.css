@@ -110,6 +110,7 @@ textarea:focus {
   margin: 1em auto 1em;
 }
 .image-space input[type="file"] {
+  /* this part chat gpt helped with */
   display: none;
 }
 .custom-file-label {

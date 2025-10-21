@@ -25,7 +25,7 @@
             <li class="comment-item">
               <div class="comment-header">
                 <span class="comment-user">{{username}}</span>
-                <small class="comment-date">{{created_at}}</small>
+                <small class="comment-date">{{created_at}}</small> {{! this part chat gpt helped with }} 
               </div>
 
               <p class="comment-text">{{content}}</p>
@@ -48,7 +48,7 @@
       {{/if}}
     </div>
 
-    {{!-- ✅ Add create comment form (for logged-in users) --}}
+    
     {{#if session.isLoggedIn}}
       <form
         action="/events/{{e.id}}/comments"
@@ -72,7 +72,6 @@
 <footer>
   <div class="footer-part-1">
     <div class="part1">
-      <!--<img src="/img/white.png" alt="eventigo" />-->
       <h1>Eventigo</h1>
       <h3>All newest events in one place</h3>
 

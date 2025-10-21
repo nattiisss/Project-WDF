@@ -5,19 +5,19 @@ body {
   background-color: black;
 }
 #background {
-  position: absolute; /* stays in document flow but behind content */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: auto; /* auto to keep image aspect ratio */
-  z-index: -1; /* behind everything */
+  height: auto;
+  z-index: -1;
 }
 
 #background img {
   width: 100%;
-  height: auto; /* keep original aspect ratio */
+  height: auto;
   display: block;
-  object-fit: contain; /* keeps full image visible */
+  object-fit: contain;
 }
 
 .contact-us {

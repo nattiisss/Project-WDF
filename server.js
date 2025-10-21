@@ -1,3 +1,9 @@
+/* CONTACT INFO: 
+Dominika Chorzewska: chdo24sb@student.ju.se 
+Natalia Bukowska: buna24rr@student.ju.se 
+GRADE: We are aiming for grade 5! 
+IMAGES: all images were taken from unsplash, pexels and creative commons on google!*/
+
 const express = require("express");
 const multer = require("multer");
 const upload = multer({ dest: "public/img/" });
@@ -83,7 +89,10 @@ app.get("/events", (req, res) => {
           });
         }
 
-        const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+        const pages = Array.from(
+          { length: totalPages },
+          (_, i) => i + 1
+        ); /* this part chat gpt helped with  */
 
         res.render("events", {
           events,
@@ -191,13 +200,12 @@ app.get("/events/:eventsid", (req, res) => {
     if (!theEvent) {
       return res.render("one-event", { error: "Event not found." });
     }
-    const commentsSql = `
+    const commentsSql = ` 
       SELECT Comments.id, Comments.content, Comments.created_at, Users.username
       FROM Comments
       INNER JOIN Users ON Comments.user_id = Users.id
       WHERE Comments.event_id = ?
-      ORDER BY Comments.created_at DESC
-    `;
+    `; /* this part chat gpt helped with  */
 
     db.all(commentsSql, [myid], (err2, comments) => {
       if (err2) {
@@ -225,13 +233,14 @@ app.post("/events/:eventsid/comments", (req, res) => {
   }
 
   if (!content || content.trim() === "") {
+    /* this part chat gpt helped with  */
     return res.redirect(`/events/${eventId}`);
   }
 
   const sql = `
     INSERT INTO Comments (event_id, user_id, content, created_at)
-    VALUES (?, ?, ?, datetime('now'))
-  `;
+    VALUES (?, ?, ?, datetime('now')) 
+  `; /* this part chat gpt helped with  */
 
   db.run(sql, [eventId, userId, content], (err) => {
     if (err) {
@@ -250,7 +259,9 @@ app.post("/events/:eventsid/comments/:commentid/delete", (req, res) => {
   const commentId = req.params.commentid;
 
   if (!req.session.isAdmin) {
-    return res.status(403).send("Forbidden");
+    return res
+      .status(403)
+      .send("Forbidden"); /* this part chat gpt helped with  */
   }
 
   const sql = `DELETE FROM Comments WHERE id = ?`;
@@ -393,36 +404,6 @@ app.post("/loggedin", (req, res) => {
   );
 });
 
-/*if (username === "admin") {
-    bcrypt.compare(password, adminPassword, (err, result) => {
-      if (err) {
-        console.log("Error in password comparison");
-        return res.render("loggedin", {
-          error: "Error in password comparison.",
-        });
-      }
-
-      if (result) {
-        req.session.isLoggedIn = true;
-        req.session.un = username;
-        req.session.isAdmin = true;
-        console.log(" >SESSION INFORMATION: ", JSON.stringify(req.session));
-        return res.render("loggedin");
-      } else {
-        console.log("Wrong password");
-        return res.render("loggedin", {
-          error: "Wrong password! Please try again",
-        });
-      }
-    });
-  } else {
-    console.log("Wrong username");
-    return res.render("loggedin", {
-      error: "Wrong username! Please try again",
-    });
-  }
-});*/
-
 app.engine(
   "handlebars",
   engine({
@@ -431,6 +412,7 @@ app.engine(
         return a == b;
       },
       ifEquals(a, b, options) {
+        /* this part chat gpt helped with 409-427  */
         return a == b ? options.fn(this) : options.inverse(this);
       },
       formatMonth: function (date) {
@@ -458,7 +440,6 @@ app.set("view engine", "handlebars");
 app.set("views", "./views");
 
 app.listen(port, () => {
-  hashPassword("wdf#2025", 12);
   console.log(`Server up and running on ${port}...`);
 });
 
@@ -533,6 +514,7 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/images", requireLogin, (req, res) => {
+  /* this part chat gpt helped with  */
   const sql = `
     SELECT Images.id, Images.filename, Images.description, Users.username, Images.created_at
     FROM Images
@@ -584,7 +566,7 @@ app.post("/images/new", upload.single("image"), (req, res) => {
   const userId = req.session.userId;
 
   const sql = `INSERT INTO Images (filename, description, user_id, created_at)
-               VALUES (?, ?, ?, datetime('now'))`;
+               VALUES (?, ?, ?, datetime('now'))`; /* this part chat gpt helped with  */
 
   db.run(sql, [filename, description, userId], (err) => {
     if (err) {
@@ -633,7 +615,9 @@ app.get("/images/modify/:id", (req, res) => {
 app.post("/images/modify/:imageid", upload.single("image"), (req, res) => {
   const imageid = req.params.imageid;
   const { filename, description } = req.body;
-  const newFilename = req.file ? req.file.filename : filename;
+  const newFilename = req.file
+    ? req.file.filename
+    : filename; /* this part chat gpt helped with  */
 
   if (!req.session.isAdmin) {
     return res.render("loggedin", {
@@ -641,18 +625,18 @@ app.post("/images/modify/:imageid", upload.single("image"), (req, res) => {
     });
   }
 
-  if (!title || !desc) {
+  if (!description || description.trim() === "") {
     return res.render("modify-image", {
-      image: { id: imageid, title, description: desc, filename: newFilename },
+      img: { id: imageid, filename: newFilename, description },
       error: "Please fill in all fields.",
     });
   }
 
   const sql = `
-  UPDATE Images
-  SET filename = ?, description = ?
-  WHERE id = ?
-`;
+    UPDATE Images
+    SET filename = ?, description = ?
+    WHERE id = ?
+  `;
 
   db.run(sql, [newFilename, description, imageid], function (err) {
     if (err) {
@@ -664,7 +648,7 @@ app.post("/images/modify/:imageid", upload.single("image"), (req, res) => {
     }
 
     console.log(`Image ${imageid} updated successfully.`);
-    return res.redirect("/images");
+    res.redirect("/images");
   });
 });
 
@@ -690,13 +674,14 @@ app.post("/account/delete", (req, res) => {
 
     // Destroy session after deletion
     req.session.destroy((err) => {
+      /* this part chat gpt helped with  */
       if (err) {
         console.error("Error destroying session:", err);
         return res.render("loggedin", {
           error: "Account deleted but session could not be destroyed.",
         });
       }
-      res.redirect("/signin"); // Redirect to signup/login page
+      res.redirect("/signin");
     });
   });
 });

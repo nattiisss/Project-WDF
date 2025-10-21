@@ -8,6 +8,7 @@ if (profileIcon && menu) {
 
   document.addEventListener("click", (e) => {
     if (!profileIcon.contains(e.target) && !menu.contains(e.target)) {
+      /* this part chat gpt helped with */
       menu.classList.remove("show");
     }
   });

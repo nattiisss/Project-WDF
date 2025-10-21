@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("loginModal");
   const imagesContainer = document.querySelector(".images-container");
 
-  if (!modal || !imagesContainer) return;
+  if (!modal || !imagesContainer) return; /* this part chat gpt helped with */
 
   modal.style.display = "block";
   imagesContainer.classList.add("blur");
@@ -19,19 +19,19 @@ imageInput.addEventListener("change", () => {
   label.classList.add("hidden");
 
   // Show preview
-  const reader = new FileReader();
+  const reader = new FileReader(); /* this part chat gpt helped with */
   reader.onload = (e) => {
     preview.innerHTML = `
       <img src="${e.target.result}" alt="Preview Image">
       <button type="button" class="remove-btn">X</button>
     `;
 
-    // Add remove functionality
+    // remove functionality
     const removeBtn = preview.querySelector(".remove-btn");
     removeBtn.addEventListener("click", () => {
-      imageInput.value = ""; // Clear file input
-      preview.innerHTML = ""; // Remove preview
-      label.classList.remove("hidden"); // Show label again
+      imageInput.value = "";
+      preview.innerHTML = "";
+      label.classList.remove("hidden");
     });
   };
   reader.readAsDataURL(file);
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const filenameInput = document.getElementById("filename");
   const previewContainer = document.getElementById("preview");
 
-  // Save the original filename (from the DB)
+  // Save the original filename
   const originalFilename = filenameInput.value;
 
   fileInput.addEventListener("change", (event) => {
@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (file) {
       filenameInput.value = file.name;
 
-      // Optional: show image preview
       const reader = new FileReader();
       reader.onload = (e) => {
         previewContainer.innerHTML = `
@@ -62,12 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Reset to original when remove button clicked
+  // Reset to original when button is clicked
   previewContainer.addEventListener("click", (event) => {
     if (event.target.classList.contains("remove-btn")) {
       previewContainer.innerHTML = "";
-      fileInput.value = ""; // clears file input
-      filenameInput.value = originalFilename; // reset to the original filename
+      fileInput.value = "";
+      filenameInput.value = originalFilename;
       document.querySelector(".custom-file-label").classList.remove("hidden");
     }
   });
