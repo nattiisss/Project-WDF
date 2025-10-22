@@ -36,6 +36,7 @@ html {
 .nav-links li a {
   color: white;
   text-decoration: none;
+  padding: 0.3rem 0.6rem;
   font-size: 15px;
   transition: color 0.3s;
 }
@@ -43,8 +44,9 @@ html {
 .nav-links li a:hover {
   background-color: #ff6961;
   border: 2px solid #ff6961;
-  padding: 0.3rem 0.8rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 30px;
+  transition: all 0.3s;
 }
 
 .nav-links li a.active {

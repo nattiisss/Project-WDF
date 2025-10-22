@@ -70,9 +70,28 @@ h2 {
   padding: 8px 15px;
   background-color: #ff6961;
   color: white;
-  border-radius: 5px;
+  border-radius: 30px;
   text-decoration: none;
 }
+
+.edit-btn:hover {
+  background-color: #b6b6b6;
+  color: white;
+  transition: all 0.3s;
+}
+
+.upload-btn:hover {
+  background-color: #f04040;
+  color: white;
+  transition: all 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #b6b6b6;
+  color: white;
+  transition: all 0.3s;
+}
+
 .admin {
   display: flex;
   flex-direction: row;
