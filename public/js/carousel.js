@@ -1,48 +1,28 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const carousels = document.querySelectorAll(".carousel-container");
+const track = document.querySelector(".carousel-track");
+const slides = Array.from(track.children);
+let currentIndex = 0;
 
-  carousels.forEach((carousel) => {
-    const track = carousel.querySelector(".carousel-track");
-    const slides = Array.from(track.children);
-    const nextBtn = carousel.querySelector(".carousel-btn-right");
-    const prevBtn = carousel.querySelector(".carousel-btn-left");
+const updateCarousel = () => {
+  const slideWidth = slides[0].getBoundingClientRect().width;
+  const gap =
+    parseFloat(getComputedStyle(track).gap) ||
+    0; /* this part chat gpt helped with 7-9*/
+  const moveAmount = currentIndex * (slideWidth + gap);
+  track.style.transform = `translateX(-${moveAmount}px)`;
+};
 
-    let currentIndex = 0;
-    const slidesPerScroll = 2;
-
-    function updateCarousel() {
-      const slideStyle = window.getComputedStyle(slides[0]);
-      const slideWidth = slides[0].getBoundingClientRect().width;
-      const gap = parseFloat(slideStyle.marginRight) || 0;
-      const wrapperPadding = parseFloat(
-        window.getComputedStyle(
-          carousel.querySelector(".carousel-track-wrapper")
-        ).paddingLeft
-      );
-      const moveAmount = (slideWidth + gap) * currentIndex - wrapperPadding;
-
-      track.style.transform = `translateX(-${moveAmount}px)`;
-    }
-
-    nextBtn.addEventListener("click", () => {
-      if (currentIndex + slidesPerScroll < slides.length) {
-        currentIndex += slidesPerScroll;
-      } else {
-        currentIndex = slides.length - slidesPerScroll;
-      }
-      updateCarousel();
-    });
-
-    prevBtn.addEventListener("click", () => {
-      if (currentIndex - slidesPerScroll >= 0) {
-        currentIndex -= slidesPerScroll;
-      } else {
-        currentIndex = 0;
-      }
-      updateCarousel();
-    });
-
-    window.addEventListener("resize", updateCarousel);
+document.querySelector(".carousel-btn-left").addEventListener("click", () => {
+  if (currentIndex > 0) {
+    currentIndex--;
     updateCarousel();
-  });
+  }
 });
+
+document.querySelector(".carousel-btn-right").addEventListener("click", () => {
+  if (currentIndex < slides.length - 2) {
+    currentIndex++;
+    updateCarousel();
+  }
+});
+
+window.addEventListener("resize", updateCarousel);
