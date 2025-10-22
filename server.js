@@ -1,8 +1,15 @@
-/* CONTACT INFO: 
+/* 
+CONTACT INFO: 
 Dominika Chorzewska: chdo24sb@student.ju.se 
 Natalia Bukowska: buna24rr@student.ju.se 
 GRADE: We are aiming for grade 5! 
-IMAGES: all images were taken from unsplash, pexels and creative commons on google!*/
+
+Admin login: admin
+Admin password: "wdf#2025" ---> "$2b$12$iY4scRgm2wm9JhshVD5rO.jqC76Pgehb1Y39X3tjMDZJqyQ7rmBfW"
+
+IMAGES: all images were taken from the web (not made by us) : unsplash, pexels and creative commons on google!
+Some code in this project were made with help of ChatGPT 
+ */
 
 const express = require("express");
 const multer = require("multer");
@@ -461,6 +468,45 @@ app.get("/logout", (req, res) => {
       console.log("logged out...");
       res.redirect("/loggedin");
     }
+  });
+});
+
+app.get("/admin/users", (req, res) => {
+  if (!req.session.isAdmin) {
+    return res.render("loggedin", {
+      error: "You must be logged in as admin to see users.",
+    });
+  }
+
+  const sql = `SELECT id, username, email, role FROM Users`;
+
+  db.all(sql, (err, users) => {
+    if (err) {
+      console.error(err.message);
+      return res.render("home", { error: "Error loading users." });
+    }
+
+    res.render("admin-users", { users });
+  });
+});
+
+app.post("/admin/users/delete/:id", (req, res) => {
+  if (!req.session.isAdmin) {
+    return res.render("loggedin", {
+      error: "Admins only.",
+    });
+  }
+
+  const userId = req.params.id;
+
+  db.run("DELETE FROM Users WHERE id = ?", [userId], (err) => {
+    if (err) {
+      console.error("Error deleting user:", err.message);
+      return res.render("admin-users", { error: "Error deleting user." });
+    }
+
+    console.log(`User ${id} deleted successfully.`);
+    res.redirect("/admin/users");
   });
 });
 

@@ -33,6 +33,11 @@
             <div id="menu" class="menu">
               <ul>
                 <li><strong>{{session.un}}</strong></li>
+
+                {{#if session.isAdmin}}
+                   <li><a href="/admin/users">Manage Users</a></li>
+                {{/if}}
+
                 <li><a href="/logout">Log out</a></li>
                 <li>
                   <form action="/account/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
