@@ -506,7 +506,34 @@ app.post("/signin", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  res.render("home", { pageClass: "home" });
+  const eventsSql = `
+    SELECT id, title, description, date
+    FROM Events
+    ORDER BY date ASC
+    LIMIT 6
+  `;
+
+  const categoriesSql = `
+    SELECT id, name
+    FROM "Event Categories"
+    LIMIT 3
+  `;
+
+  db.all(eventsSql, (err, events) => {
+    if (err) return res.render("home", { error: "Error loading events." });
+
+    db.all(categoriesSql, (err2, categories) => {
+      if (err2)
+        return res.render("home", { error: "Error loading categories." });
+
+      res.render("home", {
+        pageClass: "home",
+        events,
+        categories,
+        session: req.session,
+      });
+    });
+  });
 });
 
 app.get("/about", (req, res) => {
