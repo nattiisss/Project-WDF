@@ -507,7 +507,7 @@ app.post("/signin", (req, res) => {
 
 app.get("/home", (req, res) => {
   const eventsSql = `
-    SELECT id, title, description, date
+    SELECT id, title, description, date, images
     FROM Events
     ORDER BY date ASC
     LIMIT 6
